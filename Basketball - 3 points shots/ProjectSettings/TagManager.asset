@@ -7,6 +7,8 @@ TagManager:
   - Environment
   - Floor
   - Ring
+  - Ball
+  - Balls Rack
   layers:
   - Default
   - TransparentFX
