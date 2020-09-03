@@ -13,7 +13,11 @@ public class SoundController : MonoBehaviour
         {
             m_BouncingBallAudio.Play();
         }
-        if(collision.collider.tag=="Ring")
+        if (collision.collider.tag == "Ring") 
+        {
+            m_BallOnRingAudio.Play();
+        }
+        if (collision.collider.tag == "Glass")
         {
             m_BallOnRingAudio.Play();
         }

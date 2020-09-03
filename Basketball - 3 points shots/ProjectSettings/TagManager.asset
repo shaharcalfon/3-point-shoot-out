@@ -9,6 +9,7 @@ TagManager:
   - Ring
   - Ball
   - Balls Rack
+  - Glass
   layers:
   - Default
   - TransparentFX

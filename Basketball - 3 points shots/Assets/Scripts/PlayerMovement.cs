@@ -15,15 +15,16 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         //Update the position of the camera to the start position.
-        m_MainCamera.transform.position = m_StartPosition;
+       // m_MainCamera.transform.position = m_StartPosition;
         m_PlayerTransform = transform;
+        m_PlayerTransform.position = m_StartPosition;
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        m_PlayerTransform.position += m_PlayerTransform.forward * (1f * Time.deltaTime);
+        //m_PlayerTransform.position += m_PlayerTransform.forward * (1f * Time.deltaTime);
         if (m_Ball!= null)
         {
             m_Ball.transform.position = m_MainCamera.transform.position + m_MainCamera.transform.forward;
@@ -55,6 +56,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         m_PlayerTransform.position += m_PlayerTransform.forward * 0.5f;
                     }
+                
                 }
                 
                
