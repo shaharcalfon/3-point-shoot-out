@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private Vector3 m_StartPosition = new Vector3(-8.79f, 0.67f, -16.41f);
+    [SerializeField] private float m_BallOffset= 1.5f;
     
     private Transform m_PlayerTransform;
     private Transform m_Ball = null;
@@ -27,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
         //m_PlayerTransform.position += m_PlayerTransform.forward * (1f * Time.deltaTime);
         if (m_Ball!= null)
         {
-            m_Ball.transform.position = m_MainCamera.transform.position + m_MainCamera.transform.forward;
+            m_Ball.transform.position = m_MainCamera.transform.position + m_MainCamera.transform.forward * m_BallOffset;
         }
         checkInput();
         
