@@ -1,28 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundController : MonoBehaviour
 {
-    [SerializeField] private AudioSource m_BouncingBallAudio;
-    [SerializeField] private AudioSource m_BallOnRingAudio;
+    [SerializeField] private AudioSource tenSecondsAudio;
+    [SerializeField] private AudioSource buzzerAudio;
+    [SerializeField] private AudioSource audienceClappingAudio;
 
-    private void OnCollisionEnter(Collision collision)
+
+    public void lastTenSeconds()
     {
-        if (collision.collider.tag == "Floor")
-        {
-            m_BouncingBallAudio.Play();
-        }
-        if (collision.collider.tag == "Ring") 
-        {
-            m_BallOnRingAudio.Play();
-        }
-        if (collision.collider.tag == "Glass")
-        {
-            m_BallOnRingAudio.Play();
-        }
+        tenSecondsAudio.Play();
+        buzzerAudio.PlayDelayed(10f);
     }
-
-
+    public void scoreThreePointsAudio()
+    {
+        audienceClappingAudio.Play();
+    }
 
 }

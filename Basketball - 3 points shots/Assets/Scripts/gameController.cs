@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class gameManger : MonoBehaviour
+public class gameController : MonoBehaviour
 {
     [SerializeField] private AudioSource threeSecondsAudio;
     [SerializeField] private AudioSource buzzerAudio;
+    public int numberOfShotsThrown = 0;
 
     private void lastThreeSeconds()
     {
