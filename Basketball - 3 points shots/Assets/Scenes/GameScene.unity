@@ -63640,6 +63640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdf5d46907aaa9343be381fb685c3ece, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_BallOffset: 1.5
   m_MainCamera: {fileID: 964587562}
 --- !u!1001 &1471541641
 PrefabInstance:
@@ -74533,7 +74534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 498412, guid: 970dd4b9371394fb4890965f608d46fd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.66
+      value: -8.25
       objectReference: {fileID: 0}
     - target: {fileID: 498412, guid: 970dd4b9371394fb4890965f608d46fd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -74541,7 +74542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 498412, guid: 970dd4b9371394fb4890965f608d46fd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.76
+      value: -8.68
       objectReference: {fileID: 0}
     - target: {fileID: 498412, guid: 970dd4b9371394fb4890965f608d46fd, type: 3}
       propertyPath: m_LocalRotation.x
@@ -82961,7 +82962,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1904401949}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 31.45, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1164721786}
@@ -96342,7 +96343,7 @@ PrefabInstance:
     - target: {fileID: 3836267299450985126, guid: 9394e4978b591db4abe40b25496c6fc1,
         type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Floor
       objectReference: {fileID: 0}
     - target: {fileID: 4186152494074689099, guid: 9394e4978b591db4abe40b25496c6fc1,
         type: 3}
