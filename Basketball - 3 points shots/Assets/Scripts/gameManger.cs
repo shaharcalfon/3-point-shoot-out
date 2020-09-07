@@ -14,7 +14,7 @@ public class gameManger : MonoBehaviour
     }
     void Start()
     {
-        lastThreeSeconds();
+       // lastThreeSeconds();
     }
 
     // Update is called once per frame
