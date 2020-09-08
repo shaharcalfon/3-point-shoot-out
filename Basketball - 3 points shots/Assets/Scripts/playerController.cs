@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerController : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class playerController : MonoBehaviour
     [SerializeField] private Camera m_MainCamera;
     [SerializeField] private gameController m_GameController;
 
-
+    private Transform m_ButtonClicked;
     private Transform m_PlayerTransform;
     private Transform m_CurrentBall = null;
     private Vector3[] throwPositions = new Vector3[5];
@@ -47,6 +48,10 @@ public class playerController : MonoBehaviour
             {
                 Invoke("changePosition", 2);
             }
+            if(m_GameController.numberOfShotsThrown== 20)
+            {
+                m_GameController.EndGame();
+            }
         }
         else if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.LeftAlt) && !holdingBall)
         {  
@@ -63,6 +68,10 @@ public class playerController : MonoBehaviour
                         m_CurrentBall = hit.transform;
                         setBallDetails();
                         holdingBall = true;                      
+                    }
+                    if(hit.transform.gameObject.name == "RestartButton")
+                    {
+                        hit.transform.gameObject.GetComponent<Button>().onClick.Invoke();
                     }
                     //if(hit.collider.tag=="Balls Rack")
                     //{
