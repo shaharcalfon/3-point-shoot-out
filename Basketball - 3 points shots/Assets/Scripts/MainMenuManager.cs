@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Quit : MonoBehaviour
+public class MainMenuManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject m_HowToPlayPopUp;
