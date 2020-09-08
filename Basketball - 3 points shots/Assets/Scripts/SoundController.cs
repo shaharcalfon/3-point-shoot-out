@@ -10,12 +10,12 @@ public class SoundController : MonoBehaviour
     [SerializeField] private AudioSource audienceClappingAudio;
 
 
-    public void lastTenSeconds()
+    public void LastTenSeconds()
     {
         tenSecondsAudio.Play();
         buzzerAudio.PlayDelayed(10f);
     }
-    public void scoreThreePointsAudio()
+    public void ScoreThreePointsAudio()
     {
         audienceClappingAudio.Play();
     }

@@ -9,8 +9,8 @@ public class scoreArea : MonoBehaviour
     {
         if(other.gameObject.tag=="Ball")
         {
-            FindObjectOfType<UIContoller>().addThreePoints();
-            FindObjectOfType<SoundController>().scoreThreePointsAudio();
+            FindObjectOfType<UIContoller>().AddThreePoints();
+            FindObjectOfType<SoundController>().ScoreThreePointsAudio();
         }
     }
 }

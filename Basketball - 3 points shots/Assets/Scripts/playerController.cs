@@ -6,7 +6,7 @@ using UnityEngine;
 public class playerController : MonoBehaviour
 {
     [SerializeField] private float m_BallOffset= 1.5f;
-    [SerializeField] private float m_BallThrowingForce = 450f;
+    [SerializeField] private float m_BallThrowingForce = 525f;
     [SerializeField] private Camera m_MainCamera;
     [SerializeField] private gameController m_GameController;
 
@@ -39,14 +39,13 @@ public class playerController : MonoBehaviour
         {
             m_CurrentBall.SetParent(null);
             m_CurrentBall.GetComponent<Rigidbody>().useGravity = true;
-            m_CurrentBall.GetComponent<Rigidbody>().AddForce((m_MainCamera.transform.forward * m_BallThrowingForce)+m_MainCamera.transform.up*120);
+            m_CurrentBall.GetComponent<Rigidbody>().AddForce((m_MainCamera.transform.forward * m_BallThrowingForce)+m_MainCamera.transform.up*160);
             Destroy(m_CurrentBall.gameObject, 8);
             holdingBall = false;
             m_GameController.numberOfShotsThrown++;
             if (m_GameController.numberOfShotsThrown % 4 == 0 && m_GameController.numberOfShotsThrown<=16)
             {
-                Vector3 nextPosition = throwPositions[(m_GameController.numberOfShotsThrown / 4)];
-                m_MainCamera.transform.position = nextPosition;
+                Invoke("changePosition", 2);
             }
         }
         else if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.LeftAlt) && !holdingBall)
@@ -76,17 +75,25 @@ public class playerController : MonoBehaviour
     private void initializeThrowPositions()
     {
         throwPositions[0] = new Vector3(-9.94f, 0.71f, -16.071f);
-        throwPositions[1] = new Vector3(-5.66f, 0.71f, -7.97f);
-        throwPositions[2] = new Vector3(-0.1f, 0.71f, -7.532f);
+        throwPositions[1] = new Vector3(-5.32f, 0.71f, -8.39f);
+        throwPositions[2] = new Vector3(-0.4f, 0.71f, -6.6f);
         throwPositions[3] = new Vector3(6.15f, 0.71f, -8.74f);
-        throwPositions[4] = new Vector3(9.574f, 0.71f, -16.509f);
+        throwPositions[4] = new Vector3(9.8f, 0.71f, -16f);
     }
+
+    //This method is fix the Ball details to be ready to throw.
     private void setBallDetails()
     {
         m_CurrentBall.SetParent(m_PlayerTransform);
         m_CurrentBall.transform.position = m_MainCamera.transform.position + m_MainCamera.transform.forward * m_BallOffset;
+        m_CurrentBall.gameObject.AddComponent<Rigidbody>();
         m_CurrentBall.GetComponent<Rigidbody>().useGravity = false;
 
+    }
+    private void changePosition()
+    {
+        Vector3 nextPosition = throwPositions[(m_GameController.numberOfShotsThrown / 4)];
+        m_MainCamera.transform.position = nextPosition;
     }
 }
 
