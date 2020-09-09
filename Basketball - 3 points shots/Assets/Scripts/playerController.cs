@@ -7,15 +7,17 @@ using UnityEngine.UI;
 public class playerController : MonoBehaviour
 {
     [SerializeField] private float m_BallOffset= 1.5f;
-    [SerializeField] private float m_BallThrowingForce = 525f;
     [SerializeField] private Camera m_MainCamera;
     [SerializeField] private gameController m_GameController;
+    [SerializeField] private GameObject m_PowerBarCanvas;
+    [SerializeField] private PowerBar m_PowerBar;
 
-    private Transform m_ButtonClicked;
+    private float m_BallThrowingForce = 540f;
     private Transform m_PlayerTransform;
     private Transform m_CurrentBall = null;
     private Vector3[] throwPositions = new Vector3[5];
     private bool holdingBall = false;
+
     
 
     // Start is called before the first frame update
@@ -38,9 +40,12 @@ public class playerController : MonoBehaviour
     {
         if(Input.anyKeyDown && holdingBall)
         {
+            m_PowerBar.enabled = false;
+            m_PowerBarCanvas.SetActive(false);
+            Debug.Log("" + m_PowerBar.m_FillAmount);
             m_CurrentBall.SetParent(null);
             m_CurrentBall.GetComponent<Rigidbody>().useGravity = true;
-            m_CurrentBall.GetComponent<Rigidbody>().AddForce((m_MainCamera.transform.forward * m_BallThrowingForce)+m_MainCamera.transform.up*160);
+            m_CurrentBall.GetComponent<Rigidbody>().AddForce((m_MainCamera.transform.forward * m_BallThrowingForce*m_PowerBar.m_FillAmount)+m_MainCamera.transform.up*160);
             Destroy(m_CurrentBall.gameObject, 8);
             holdingBall = false;
             m_GameController.numberOfShotsThrown++;
@@ -67,16 +72,14 @@ public class playerController : MonoBehaviour
                     {
                         m_CurrentBall = hit.transform;
                         setBallDetails();
-                        holdingBall = true;                      
+                        holdingBall = true;
+                        m_PowerBarCanvas.SetActive(true);
+                        m_PowerBar.TurnOnPowerBar();
                     }
                     if(hit.transform.gameObject.name == "RestartButton")
                     {
                         hit.transform.gameObject.GetComponent<Button>().onClick.Invoke();
                     }
-                    //if(hit.collider.tag=="Balls Rack")
-                    //{
-                    //   m_MainCamera.transform.position += m_MainCamera.transform.forward * 0.5f;
-                    //}
                 }               
             }
         }

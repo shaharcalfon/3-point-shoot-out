@@ -12,7 +12,7 @@ public class UIContoller : MonoBehaviour
     private Vector3[] EndGamePopUpOffsets = new Vector3[5];
     private int m_pointsScored = 0;
     private float m_SecondCounter = 0;
-    private float m_timeRemaining = 15;
+    private float m_timeRemaining = 180;
     public bool timerIsRunning = false;
 
     // Start is called before the first frame update
