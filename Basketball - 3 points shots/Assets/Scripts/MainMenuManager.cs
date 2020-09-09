@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -24,6 +25,11 @@ public class MainMenuManager : MonoBehaviour
         {
             m_HowToPlayPopUp.SetActive(i_Active);
         }
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("GameScene");
     }
 
     public void QuitGame()
