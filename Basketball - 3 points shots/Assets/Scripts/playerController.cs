@@ -12,7 +12,8 @@ public class playerController : MonoBehaviour
     [SerializeField] private GameObject m_PowerBarCanvas;
     [SerializeField] private PowerBar m_PowerBar;
 
-    private float m_BallThrowingForce = 540f;
+    private float m_BallThrowingForce = 515f;
+    private float m_BallAngleForce = 180f;
     private Transform m_PlayerTransform;
     private Transform m_CurrentBall = null;
     private Vector3[] throwPositions = new Vector3[5];
@@ -40,23 +41,7 @@ public class playerController : MonoBehaviour
     {
         if(Input.anyKeyDown && holdingBall)
         {
-            m_PowerBar.enabled = false;
-            m_PowerBarCanvas.SetActive(false);
-            Debug.Log("" + m_PowerBar.m_FillAmount);
-            m_CurrentBall.SetParent(null);
-            m_CurrentBall.GetComponent<Rigidbody>().useGravity = true;
-            m_CurrentBall.GetComponent<Rigidbody>().AddForce((m_MainCamera.transform.forward * m_BallThrowingForce*m_PowerBar.m_FillAmount)+m_MainCamera.transform.up*160);
-            Destroy(m_CurrentBall.gameObject, 8);
-            holdingBall = false;
-            m_GameController.numberOfShotsThrown++;
-            if (m_GameController.numberOfShotsThrown % 4 == 0 && m_GameController.numberOfShotsThrown<=16)
-            {
-                Invoke("changePosition", 2);
-            }
-            if(m_GameController.numberOfShotsThrown== 20)
-            {
-                m_GameController.EndGame();
-            }
+            ThrowingBall();
         }
         else if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.LeftAlt) && !holdingBall)
         {  
@@ -68,13 +53,13 @@ public class playerController : MonoBehaviour
                 if(hit.collider!= null)
                 {
                     Debug.Log("HIT!!!"+ hit.transform.gameObject.name);
-                    if (hit.collider.tag == "Ball")
+                    if (hit.collider.tag == "Ball")                     
                     {
-                        m_CurrentBall = hit.transform;
+                        m_CurrentBall = hit.transform;                  //Update the ball reference to the current ball we hit.
                         setBallDetails();
                         holdingBall = true;
-                        m_PowerBarCanvas.SetActive(true);
-                        m_PowerBar.TurnOnPowerBar();
+                        m_PowerBarCanvas.SetActive(true);               //Dispaye the power bar.
+                        m_PowerBar.TurnOnPowerBar();                    //When the player holding the ball we need to turn on the power bar.
                     }
                     if(hit.transform.gameObject.name == "RestartButton")
                     {
@@ -84,6 +69,7 @@ public class playerController : MonoBehaviour
             }
         }
     }
+    //This method initialize the throwPosition array with the 5 thorwing position.
     private void initializeThrowPositions()
     {
         throwPositions[0] = new Vector3(-9.94f, 0.71f, -16.071f);
@@ -102,10 +88,52 @@ public class playerController : MonoBehaviour
         m_CurrentBall.GetComponent<Rigidbody>().useGravity = false;
 
     }
+    //This method Update all the relevant details when the player is throwing a ball.
+    private void ThrowingBall()
+    {
+        m_PowerBar.enabled = false;                                          //Turn off the power bar.
+        m_PowerBarCanvas.SetActive(false);                                   //Hide the powerBar Canvas.
+        Debug.Log("" + m_PowerBar.m_FillAmount);
+        m_CurrentBall.SetParent(null);                                       //The player not holding a ball.
+        m_CurrentBall.GetComponent<Rigidbody>().useGravity = true;           //Update the useGravity field.
+        float balancedPower = ThrowingPowerBalance(m_PowerBar.m_FillAmount);   
+        Debug.Log("" + balancedPower);
+        m_CurrentBall.GetComponent<Rigidbody>().AddForce((m_MainCamera.transform.forward * m_BallThrowingForce * balancedPower) + m_MainCamera.transform.up * m_BallAngleForce);
+        Destroy(m_CurrentBall.gameObject, 8);
+        holdingBall = false;                                                //The player is not holding a ball.
+        m_GameController.numberOfShootsThrown++;                             //Increase the number of shoots thrown.
+        if (m_GameController.numberOfShootsThrown % 4 == 0 && m_GameController.numberOfShootsThrown <= 16) //Check if the player need to change position.
+        {
+            Invoke("changePosition", 2);    //Change the position after 2 second.
+        }
+        if (m_GameController.numberOfShootsThrown == 20)
+        {
+            m_GameController.EndGame();
+        }
+    }
+    //This method balanced the throwing power to make it real throw.
+    private float ThrowingPowerBalance(float i_FillAmount)
+    {
+        float balancedPower = 0;
+        if (i_FillAmount >= 0.8f)
+        {
+            balancedPower = 1f;
+        }
+        else if (i_FillAmount < 0.8f && i_FillAmount >= 0.6f)
+        {
+            balancedPower = 0.8f;
+        }
+        else
+        {
+            balancedPower = 0.6f;
+        }
+        return balancedPower;
+        
+    }
     private void changePosition()
     {
-        Vector3 nextPosition = throwPositions[(m_GameController.numberOfShotsThrown / 4)];
-        m_MainCamera.transform.position = nextPosition;
+        Vector3 nextPosition = throwPositions[(m_GameController.numberOfShootsThrown / 4)];
+        m_MainCamera.transform.position = nextPosition;         //Update the main camera position with the next player position.
     }
 }
 

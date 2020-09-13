@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class gameController : MonoBehaviour
 {
     [SerializeField] private UIContoller m_UIController; 
-    public int numberOfShotsThrown = 0;
+    public int numberOfShootsThrown = 0;
 
     private void Update()
     {
