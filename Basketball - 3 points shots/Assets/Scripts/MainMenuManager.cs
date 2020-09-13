@@ -1,17 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Net.Mime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject m_HowToPlayPopUp;
-    // Start is called before the first frame update
+    [SerializeField]private GameObject m_HowToPlayPopUp;
+    [SerializeField] private Text m_HighScoreText;
     void Start()
     {
-        
+
+        int highScore = PlayerPrefs.GetInt("HighScore",0);
+        m_HighScoreText.text = string.Format("Highscore : {0}",highScore);
     }
+
+
 
     // Update is called once per frame
     void Update()
