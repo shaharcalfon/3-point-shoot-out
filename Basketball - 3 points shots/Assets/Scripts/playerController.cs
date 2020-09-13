@@ -53,7 +53,10 @@ public class playerController : MonoBehaviour
                 if(hit.collider!= null)
                 {
                     Debug.Log("HIT!!!"+ hit.transform.gameObject.name);
-                    if (hit.collider.tag == "Ball")                     
+                    Debug.Log("HIT!!!" + hit.collider.transform.parent.name);
+                    Debug.Log("Format" + string.Format("Balls rack-{0}", m_GameController.numberOfShootsThrown / 4 + 1));
+                    //CheckCorrectBallRack(hit.collider.transform.parent.name);
+                    if (hit.collider.tag == "Ball" && hit.collider.transform.parent.name == string.Format("Balls rack-{0}", m_GameController.numberOfShootsThrown / 4 + 1))         
                     {
                         m_CurrentBall = hit.transform;                  //Update the ball reference to the current ball we hit.
                         setBallDetails();
@@ -129,6 +132,21 @@ public class playerController : MonoBehaviour
         }
         return balancedPower;
         
+    }
+    //This method return true only if the player trying to catch ball from the current balls rack else return false.
+    private bool CheckCorrectBallRack(string i_BallRackName)
+    {
+        bool isCorrectRack = true;
+        int currentBallRackNumber = m_GameController.numberOfShootsThrown / 4 + 1;
+        string CurrentBallRackName = string.Format("Balls rack-{0}", currentBallRackNumber);
+        Debug.Log("HIT!!!" + CurrentBallRackName);
+
+        if (i_BallRackName != CurrentBallRackName)
+        {
+            isCorrectRack= false;
+        }
+
+        return isCorrectRack;
     }
     private void changePosition()
     {

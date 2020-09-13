@@ -6903,8 +6903,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Timer: {fileID: 1092074021}
   m_score: {fileID: 1088000469}
-  m_EndGameImage: {fileID: 2211734299338449558, guid: 33034e4c09f5a98499218ffa559910e9,
+  m_EndGameImage: {fileID: 8490886728598148462, guid: 2a65dc6afc7dcda4eaeaa4e72a2f3bf1,
     type: 3}
+  m_EndGameImageClone: {fileID: 0}
   m_MainCamera: {fileID: 964587562}
   timerIsRunning: 0
 --- !u!4 &180525488
@@ -8961,7 +8962,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UIController: {fileID: 180525487}
-  numberOfShotsThrown: 0
+  numberOfShootsThrown: 0
 --- !u!4 &225271048
 Transform:
   m_ObjectHideFlags: 0
