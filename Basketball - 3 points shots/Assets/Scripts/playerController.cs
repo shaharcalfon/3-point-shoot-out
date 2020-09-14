@@ -70,8 +70,6 @@ public class playerController : MonoBehaviour
             {
                 if (hit.collider != null)
                 {
-                    m_LeftHand.SetTrigger("Catch");
-                    m_RightHand.SetTrigger("Catch");
                     Debug.Log("HIT!!!" + hit.transform.gameObject.name);
                     Debug.Log("HIT!!!" + hit.collider.transform.parent.name);
                     Debug.Log("Format" + string.Format("Balls rack-{0}", m_GameController.numberOfShootsThrown / 4 + 1));
@@ -117,7 +115,7 @@ public class playerController : MonoBehaviour
         m_CurrentBall.SetParent(null);                                       //The player not holding a ball.
         m_CurrentBall.GetComponent<Rigidbody>().useGravity = true;           //Update the useGravity field.
         float balancedPower = ThrowingPowerBalance(m_PowerBar.m_FillAmount);
-        m_RightHand.SetTrigger("Throw");
+        m_RightHand.SetTrigger("Throw");                                    //Turn on the Throw animation
         m_LeftHand.SetTrigger("Throw");
         m_CurrentBall.GetComponent<Rigidbody>().AddForce((m_MainCamera.transform.forward * m_BallThrowingForce * balancedPower) + m_MainCamera.transform.up * m_BallAngleForce);
         Destroy(m_CurrentBall.gameObject, 8);
@@ -157,7 +155,7 @@ public class playerController : MonoBehaviour
         bool isCorrectRack = true;
         int currentBallRackNumber = m_GameController.numberOfShootsThrown / 4 + 1;
         string CurrentBallRackName = string.Format("Balls rack-{0}", currentBallRackNumber);
-        Debug.Log("HIT!!!" + CurrentBallRackName);
+        Debug.Log("" + CurrentBallRackName);
 
         if (i_BallRackName != CurrentBallRackName)
         {

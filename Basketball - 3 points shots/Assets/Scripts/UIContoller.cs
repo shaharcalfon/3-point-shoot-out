@@ -7,10 +7,12 @@ public class UIContoller : MonoBehaviour
 {
     [SerializeField] private Text m_Timer;
     [SerializeField] private Text m_score;
-    [SerializeField] private Canvas m_EndGameImage;
+    [SerializeField] private Canvas m_EndGameCanvas;
     [SerializeField] private Camera m_MainCamera;
+    [SerializeField] private gameController m_gameController;
+
     //private Vector3[] EndGamePopUpOffsets = new Vector3[5];
-    private int m_pointsScored = 0;
+    private Canvas m_EndGameImageClone;
     private float m_SecondCounter = 0;
     private float m_timeRemaining = 25;
     public bool timerIsRunning = false;
@@ -45,26 +47,23 @@ public class UIContoller : MonoBehaviour
                 FindObjectOfType<gameController>().EndGame();
             }
         }
-
     }
     //Display the time left.
     private void DisplayTime(float timeToDisplay)
     {
         timeToDisplay += 1;
-
         float minutes = Mathf.FloorToInt(timeToDisplay / 60);
         float seconds = Mathf.FloorToInt(timeToDisplay % 60);
-
         m_Timer.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
-    public void AddThreePoints()
+    public void UpdateScoreText()
     {
-        m_pointsScored += 3;
-        m_score.text = string.Format("Score: {0}", m_pointsScored);
+        m_score.text = string.Format("Score: {0}", m_gameController.m_pointsScored);
     }
-    public void DisplayEndGameUI()
+    public void DisplayAndInitEndGameUI()
     {
-        Instantiate(m_EndGameImage, m_MainCamera.transform.position + new Vector3(3f, 0f, 0f),m_EndGameImage.transform.rotation);
-
+        m_EndGameImageClone = Instantiate(m_EndGameCanvas, m_MainCamera.transform.position + new Vector3(3f, 0f, 0f),m_EndGameCanvas.transform.rotation);
+        m_EndGameImageClone.transform.Find("EndGameImage").Find("ButtonRestart").GetComponent<Button>().onClick.AddListener(() => m_gameController.Restart());
+        m_EndGameImageClone.transform.Find("EndGameImage").Find("ButtonQuit").GetComponent<Button>().onClick.AddListener(() => m_gameController.QuitGame());
     }
 }
