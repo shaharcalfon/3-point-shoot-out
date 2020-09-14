@@ -324,7 +324,7 @@ GameObject:
   - component: {fileID: 1057403580850900666}
   - component: {fileID: 239896527250378772}
   m_Layer: 5
-  m_Name: QuitGameButton
+  m_Name: ButtonQuit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -659,7 +659,7 @@ GameObject:
   - component: {fileID: 8490886729587467257}
   - component: {fileID: 1908921216758194770}
   m_Layer: 5
-  m_Name: RestartButton
+  m_Name: ButtonRestart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

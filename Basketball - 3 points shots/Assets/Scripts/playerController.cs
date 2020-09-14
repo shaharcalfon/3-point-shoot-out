@@ -6,11 +6,13 @@ using UnityEngine.UI;
 
 public class playerController : MonoBehaviour
 {
-    [SerializeField] private float m_BallOffset= 1.5f;
+    [SerializeField] private float m_BallOffset = 1.5f;
     [SerializeField] private Camera m_MainCamera;
     [SerializeField] private gameController m_GameController;
     [SerializeField] private GameObject m_PowerBarCanvas;
     [SerializeField] private PowerBar m_PowerBar;
+    [SerializeField] private Animator m_RightHand;
+    [SerializeField] private Animator m_LeftHand;
 
     private float m_BallThrowingForce = 515f;
     private float m_BallAngleForce = 180f;
@@ -19,7 +21,7 @@ public class playerController : MonoBehaviour
     private Vector3[] throwPositions = new Vector3[5];
     private bool holdingBall = false;
 
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,36 +29,54 @@ public class playerController : MonoBehaviour
         initializeThrowPositions();
         m_PlayerTransform = transform;
     }
-
-  
-
     // Update is called once per frame
     void Update()
     {
         checkInput();
-
     }
 
     void checkInput()
     {
-        if(Input.anyKeyDown && holdingBall)
+        if(!m_GameController.isGameOn)                      //Press the UI Buttons.
         {
-            ThrowingBall();
-        }
-        else if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.LeftAlt) && !holdingBall)
-        {  
             RaycastHit hit;
             Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
 
             if (Physics.Raycast(myRay, out hit))
             {
-                if(hit.collider!= null)
+                if (hit.collider != null)
                 {
-                    Debug.Log("HIT!!!"+ hit.transform.gameObject.name);
+                    if (hit.transform.gameObject.name == "ButtonRestart")
+                    {
+                        hit.transform.gameObject.GetComponent<Button>().onClick.Invoke();
+                    }
+                    if (hit.transform.gameObject.name == "ButtonQuit")
+                    {
+                        hit.transform.gameObject.GetComponent<Button>().onClick.Invoke();
+                    }
+                }
+            }
+        }
+        if (Input.anyKeyDown && holdingBall && m_GameController.isGameOn)
+        {
+            ThrowingBall();
+        }
+        else if (Input.anyKeyDown && !Input.GetKeyDown(KeyCode.LeftAlt) && !holdingBall&& m_GameController.isGameOn)
+        {
+            RaycastHit hit;
+            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+
+            if (Physics.Raycast(myRay, out hit))
+            {
+                if (hit.collider != null)
+                {
+                    m_LeftHand.SetTrigger("Catch");
+                    m_RightHand.SetTrigger("Catch");
+                    Debug.Log("HIT!!!" + hit.transform.gameObject.name);
                     Debug.Log("HIT!!!" + hit.collider.transform.parent.name);
                     Debug.Log("Format" + string.Format("Balls rack-{0}", m_GameController.numberOfShootsThrown / 4 + 1));
                     //CheckCorrectBallRack(hit.collider.transform.parent.name);
-                    if (hit.collider.tag == "Ball" && hit.collider.transform.parent.name == string.Format("Balls rack-{0}", m_GameController.numberOfShootsThrown / 4 + 1))         
+                    if (hit.collider.tag == "Ball" && hit.collider.transform.parent.name == string.Format("Balls rack-{0}", m_GameController.numberOfShootsThrown / 4 + 1))
                     {
                         m_CurrentBall = hit.transform;                  //Update the ball reference to the current ball we hit.
                         setBallDetails();
@@ -64,11 +84,8 @@ public class playerController : MonoBehaviour
                         m_PowerBarCanvas.SetActive(true);               //Dispaye the power bar.
                         m_PowerBar.TurnOnPowerBar();                    //When the player holding the ball we need to turn on the power bar.
                     }
-                    if(hit.transform.gameObject.name == "RestartButton")
-                    {
-                        hit.transform.gameObject.GetComponent<Button>().onClick.Invoke();
-                    }
-                }               
+                    
+                }
             }
         }
     }
@@ -99,8 +116,9 @@ public class playerController : MonoBehaviour
         Debug.Log("" + m_PowerBar.m_FillAmount);
         m_CurrentBall.SetParent(null);                                       //The player not holding a ball.
         m_CurrentBall.GetComponent<Rigidbody>().useGravity = true;           //Update the useGravity field.
-        float balancedPower = ThrowingPowerBalance(m_PowerBar.m_FillAmount);   
-        Debug.Log("" + balancedPower);
+        float balancedPower = ThrowingPowerBalance(m_PowerBar.m_FillAmount);
+        m_RightHand.SetTrigger("Throw");
+        m_LeftHand.SetTrigger("Throw");
         m_CurrentBall.GetComponent<Rigidbody>().AddForce((m_MainCamera.transform.forward * m_BallThrowingForce * balancedPower) + m_MainCamera.transform.up * m_BallAngleForce);
         Destroy(m_CurrentBall.gameObject, 8);
         holdingBall = false;                                                //The player is not holding a ball.
@@ -131,7 +149,7 @@ public class playerController : MonoBehaviour
             balancedPower = 0.6f;
         }
         return balancedPower;
-        
+
     }
     //This method return true only if the player trying to catch ball from the current balls rack else return false.
     private bool CheckCorrectBallRack(string i_BallRackName)
@@ -143,7 +161,7 @@ public class playerController : MonoBehaviour
 
         if (i_BallRackName != CurrentBallRackName)
         {
-            isCorrectRack= false;
+            isCorrectRack = false;
         }
 
         return isCorrectRack;

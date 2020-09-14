@@ -8,12 +8,11 @@ public class UIContoller : MonoBehaviour
     [SerializeField] private Text m_Timer;
     [SerializeField] private Text m_score;
     [SerializeField] private Canvas m_EndGameImage;
-    [SerializeField] private Canvas m_EndGameImageClone;
     [SerializeField] private Camera m_MainCamera;
-    private Vector3[] EndGamePopUpOffsets = new Vector3[5];
+    //private Vector3[] EndGamePopUpOffsets = new Vector3[5];
     private int m_pointsScored = 0;
     private float m_SecondCounter = 0;
-    private float m_timeRemaining = 100;
+    private float m_timeRemaining = 25;
     public bool timerIsRunning = false;
 
     // Start is called before the first frame update
