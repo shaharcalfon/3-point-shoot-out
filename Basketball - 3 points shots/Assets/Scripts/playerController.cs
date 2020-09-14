@@ -11,8 +11,8 @@ public class playerController : MonoBehaviour
     [SerializeField] private gameController m_GameController;
     [SerializeField] private GameObject m_PowerBarCanvas;
     [SerializeField] private PowerBar m_PowerBar;
-    [SerializeField] private Animator m_RightHand;
-    [SerializeField] private Animator m_LeftHand;
+    [SerializeField] private Animator m_Hands;
+
 
     private float m_BallThrowingForce = 515f;
     private float m_BallAngleForce = 180f;
@@ -70,12 +70,13 @@ public class playerController : MonoBehaviour
             {
                 if (hit.collider != null)
                 {
+                    
                     Debug.Log("HIT!!!" + hit.transform.gameObject.name);
                     Debug.Log("HIT!!!" + hit.collider.transform.parent.name);
                     Debug.Log("Format" + string.Format("Balls rack-{0}", m_GameController.numberOfShootsThrown / 4 + 1));
-                    //CheckCorrectBallRack(hit.collider.transform.parent.name);
-                    if (hit.collider.tag == "Ball" && hit.collider.transform.parent.name == string.Format("Balls rack-{0}", m_GameController.numberOfShootsThrown / 4 + 1))
+                    if (hit.collider.tag == "Ball" && CheckCorrectBallRack(hit.collider.transform.parent.name))
                     {
+                        m_Hands.SetTrigger("Catch");
                         m_CurrentBall = hit.transform;                  //Update the ball reference to the current ball we hit.
                         setBallDetails();
                         holdingBall = true;
@@ -114,12 +115,10 @@ public class playerController : MonoBehaviour
         Debug.Log("" + m_PowerBar.m_FillAmount);
         m_CurrentBall.SetParent(null);                                       //The player not holding a ball.
         m_CurrentBall.GetComponent<Rigidbody>().useGravity = true;           //Update the useGravity field.
-        float balancedPower = ThrowingPowerBalance(m_PowerBar.m_FillAmount);
-        m_RightHand.SetTrigger("Throw");                                    //Turn on the Throw animation
-        m_LeftHand.SetTrigger("Throw");
+        float balancedPower = ThrowingPowerBalance(m_PowerBar.m_FillAmount);                                   
         m_CurrentBall.GetComponent<Rigidbody>().AddForce((m_MainCamera.transform.forward * m_BallThrowingForce * balancedPower) + m_MainCamera.transform.up * m_BallAngleForce);
         Destroy(m_CurrentBall.gameObject, 8);
-        holdingBall = false;                                                //The player is not holding a ball.
+        holdingBall = false;                                                 //The player is not holding a ball.
         m_GameController.numberOfShootsThrown++;                             //Increase the number of shoots thrown.
         if (m_GameController.numberOfShootsThrown % 4 == 0 && m_GameController.numberOfShootsThrown <= 16) //Check if the player need to change position.
         {

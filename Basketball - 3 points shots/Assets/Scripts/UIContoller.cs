@@ -14,7 +14,7 @@ public class UIContoller : MonoBehaviour
     //private Vector3[] EndGamePopUpOffsets = new Vector3[5];
     private Canvas m_EndGameImageClone;
     private float m_SecondCounter = 0;
-    private float m_timeRemaining = 25;
+    private float m_timeRemaining = 10;
     public bool timerIsRunning = false;
 
     // Start is called before the first frame update
@@ -62,7 +62,7 @@ public class UIContoller : MonoBehaviour
     }
     public void DisplayAndInitEndGameUI()
     {
-        m_EndGameImageClone = Instantiate(m_EndGameCanvas, m_MainCamera.transform.position + new Vector3(3f, 0f, 0f),m_EndGameCanvas.transform.rotation);
+        m_EndGameImageClone = Instantiate(m_EndGameCanvas, m_MainCamera.transform.position + new Vector3(m_MainCamera.transform.forward.x*5,0, m_MainCamera.transform.forward.z),m_EndGameCanvas.transform.rotation);
         m_EndGameImageClone.transform.Find("EndGameImage").Find("ButtonRestart").GetComponent<Button>().onClick.AddListener(() => m_gameController.Restart());
         m_EndGameImageClone.transform.Find("EndGameImage").Find("ButtonQuit").GetComponent<Button>().onClick.AddListener(() => m_gameController.QuitGame());
     }
