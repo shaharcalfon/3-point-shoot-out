@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,9 +15,9 @@ public class UIContoller : MonoBehaviour
     private const int NumberOfPostions = 5;
     private Vector3 m_EndGameUIposition = new Vector3(-0.45f, -0.45f, -15.7f);
     private float[] m_EndGameUIRotationsOffsets = new float[5];
-    private Canvas m_EndGameImageClone;
+    private Canvas m_EndGameCanvasClone;
     private float m_SecondCounter = 0;
-    private float m_timeRemaining = 35;
+    private float m_timeRemaining = 30;
     public bool timerIsRunning = false;
 
     // Start is called before the first frame update
@@ -65,21 +66,31 @@ public class UIContoller : MonoBehaviour
     }
     public void DisplayAndInitEndGameUI()
     {
-        float angleOfUI = m_EndGameUIRotationsOffsets[4];         //Initialize the angle offset to make it appropriate to the last position.
+        float rotateAngleOfUI = m_EndGameUIRotationsOffsets[4];                                                    //Initialize the angle  to make it appropriate to the last position.
 
-        m_EndGameImageClone = Instantiate(m_EndGameCanvas, m_EndGameUIposition, m_EndGameCanvas.transform.rotation);
+        m_EndGameCanvasClone = Instantiate(m_EndGameCanvas, m_EndGameUIposition, m_EndGameCanvas.transform.rotation);
         if(m_GameController.numberOfShootsThrown!=20)
         {
-            angleOfUI = m_EndGameUIRotationsOffsets[(m_GameController.numberOfShootsThrown / 4)];             //Set the angle of the UI according to the current position.
+            rotateAngleOfUI = m_EndGameUIRotationsOffsets[(m_GameController.numberOfShootsThrown / 4)];            //Set the angle of the UI according to the current position.
         }
-        m_EndGameImageClone.transform.RotateAround(m_EndGameImageClone.transform.position,Vector3.up, angleOfUI);
-        m_EndGameImageClone.transform.Find("EndGameImage").Find("ButtonRestart").GetComponent<Button>().onClick.AddListener(() => m_GameController.Restart());
-        m_EndGameImageClone.transform.Find("EndGameImage").Find("ButtonQuit").GetComponent<Button>().onClick.AddListener(() => m_GameController.QuitGame());
+        m_EndGameCanvasClone.transform.RotateAround(m_EndGameCanvasClone.transform.position,Vector3.up, rotateAngleOfUI); //Rotate the EndGameUI according the appropriate angle.
+        m_EndGameCanvasClone.transform.Find("EndGameImage").Find("ButtonRestart").GetComponent<Button>().onClick.AddListener(() => m_GameController.Restart());
+        m_EndGameCanvasClone.transform.Find("EndGameImage").Find("ButtonQuit").GetComponent<Button>().onClick.AddListener(() => m_GameController.QuitGame());
+        updateEndGameUIByResult();
     }
-    private void initializeEndGameUIPositions()
-    {
 
+    private void updateEndGameUIByResult()
+    {
+        int lastHighScore = PlayerPrefs.GetInt("HighScore");        //Get the last highscore.
+        if(m_GameController.m_pointsScored>lastHighScore)           //Check if the player achieve new highscore.
+        {
+            m_EndGameCanvasClone.transform.Find("EndGameImage").Find("NewHighScore").gameObject.SetActive(true);        //Display the new highscore text.
+            PlayerPrefs.SetInt("HighScore", m_GameController.m_pointsScored);
+        }
+        string currentGameScoreText = string.Format("Your Score: {0}", m_GameController.m_pointsScored);
+        m_EndGameCanvasClone.transform.Find("EndGameImage").Find("YourScore").GetComponent<Text>().text = currentGameScoreText;  //Update the current score.
     }
+
     private void initializeEndGameUIRotationsOffsets()
     { 
         float angle = 0f;
