@@ -9,17 +9,18 @@ public class gameController : MonoBehaviour
     [SerializeField] private playerController m_PlayerController;
     public int m_pointsScored = 0;
     public int numberOfShootsThrown = 0;
-    public bool isGameOn=true;
+    public bool isGameOn { get; set; }
 
-    private void Update()
+    private void Start()
     {
-
+        isGameOn = true;
     }
 
     public void EndGame()
     {
         isGameOn = false;
-        FindObjectOfType<UIContoller>().DisplayAndInitEndGameUI();
+        m_UIController.timerIsRunning = false;
+        m_UIController.DisplayAndInitEndGameUI();
     }
 
     public void AddThreePoints()
