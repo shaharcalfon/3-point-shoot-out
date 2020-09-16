@@ -9,9 +9,8 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField]private GameObject m_HowToPlayPopUp;
     [SerializeField] private Text m_HighScoreText;
-    void Start()
+    void Start() //initialization the high score according to the last highScore
     {
-
         int highScore = PlayerPrefs.GetInt("HighScore",0);
         m_HighScoreText.text = string.Format("Highscore : {0}",highScore);
     }
