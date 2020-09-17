@@ -17,7 +17,7 @@ public class UIContoller : MonoBehaviour
     private float[] m_EndGameUIRotationsOffsets = new float[5];
     private Canvas m_EndGameCanvasClone;
     private float m_SecondCounter = 0;
-    private float m_timeRemaining = 30;
+    private float m_timeRemaining = 150;
     public bool timerIsRunning = false;
 
     // Start is called before the first frame update
@@ -82,7 +82,7 @@ public class UIContoller : MonoBehaviour
     private void updateEndGameUIByResult()
     {
         int lastHighScore = PlayerPrefs.GetInt("HighScore");        //Get the last highscore.
-        if(m_GameController.m_pointsScored>lastHighScore)           //Check if the player achieve new highscore.
+        if (m_GameController.m_pointsScored > lastHighScore)         //Check if the player achieve new highscore.
         {
             m_EndGameCanvasClone.transform.Find("EndGameImage").Find("NewHighScore").gameObject.SetActive(true);        //Display the new highscore text.
             PlayerPrefs.SetInt("HighScore", m_GameController.m_pointsScored);

@@ -101,7 +101,7 @@ public class playerController : MonoBehaviour
     //This method is fix the Ball details to be ready to throw.
     private void setBallDetails()
     {
-        Invoke("setBallParent", 0.2f);
+        Invoke("setBallParent", 0.1f);
         Invoke("setBallPosition", 0.7f);
         m_CurrentBall.gameObject.AddComponent<Rigidbody>();
         m_CurrentBall.GetComponent<Rigidbody>().useGravity = false;
@@ -112,13 +112,10 @@ public class playerController : MonoBehaviour
     {
         m_PowerBar.enabled = false;                                          //Turn off the power bar.
         m_PowerBarCanvas.SetActive(false);                                   //Hide the powerBar Canvas.
-        m_CurrentBall.SetParent(null);                                       //The player not holding a ball.
-        m_CurrentBall.GetComponent<Rigidbody>().useGravity = true;           //Update the useGravity field.
-        float balancedPower = ThrowingPowerBalance(m_PowerBar.m_FillAmount); 
-        m_LeftHandAnimator.SetTrigger("Throw");
+        m_LeftHandAnimator.SetTrigger("Throw");                              //Turn on the throw animation.   
         m_RightHandAnimator.SetTrigger("Throw");
-        m_CurrentBall.GetComponent<Rigidbody>().AddForce((m_MainCamera.transform.forward * m_BallThrowingForce * balancedPower) + m_MainCamera.transform.up * m_BallAngleForce);
-        Destroy(m_CurrentBall.gameObject, 8);
+        Invoke("addForceToBall", 0.15f);                                     
+        Destroy(m_CurrentBall.gameObject, 7);
         holdingBall = false;                                                 //The player is not holding a ball.
         m_GameController.numberOfShootsThrown++;                             //Increase the number of shoots thrown.
         if (m_GameController.numberOfShootsThrown % 4 == 0 && m_GameController.numberOfShootsThrown <= 16) //Check if the player need to change position.
@@ -130,6 +127,15 @@ public class playerController : MonoBehaviour
             m_GameController.EndGame();
         }
     }
+
+    private void addForceToBall()
+    {
+        m_CurrentBall.GetComponent<Rigidbody>().useGravity = true;           //Update the useGravity field.
+        float balancedPower = ThrowingPowerBalance(m_PowerBar.m_FillAmount);
+        m_CurrentBall.GetComponent<Rigidbody>().AddForce((m_MainCamera.transform.forward * m_BallThrowingForce * balancedPower) + m_MainCamera.transform.up * m_BallAngleForce);
+        m_CurrentBall.SetParent(null);                                       //The player not holding a ball.
+    }
+
     //This method balanced the throwing power to make it real throw.
     private float ThrowingPowerBalance(float i_FillAmount)
     {
