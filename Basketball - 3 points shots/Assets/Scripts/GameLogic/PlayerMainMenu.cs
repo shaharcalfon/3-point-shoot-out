@@ -7,13 +7,9 @@ using UnityEngine.UI;
 
 public class PlayerMainMenu : MonoBehaviour
 {
-    [SerializeField]
-    private Camera m_MainCamera;
-    [SerializeField]
-    private GameObject m_HowToPlayPopUp;
+    [SerializeField] private Camera m_MainCamera;
+    [SerializeField] private GameObject m_HowToPlayPopUp;
 
-
-    // Update is called once per frame
     void Update()
     {
         checkInput();
@@ -28,27 +24,25 @@ public class PlayerMainMenu : MonoBehaviour
 
             if(Physics.Raycast(myRay, out hit))
             {
-                string colliderName = hit.transform.gameObject.name;
-                Button button = hit.transform.gameObject.GetComponent<Button>();
+                string colliderName = hit.transform.gameObject.name;                
                 if(hit.collider != null && isValidClicked(colliderName))
                 {
-                    button.onClick.Invoke();
+                    hit.transform.gameObject.GetComponent<Button>().onClick.Invoke();
                 }
             }
         }
     }
-
     private bool isValidClicked(string i_ColliderName)
     {
         bool validClicked = false;
         if(i_ColliderName == "ButtonStart" || i_ColliderName == "ButtonQuit" || i_ColliderName == "ButtonHowToPlay")
         {
-             if ((m_HowToPlayPopUp!=null) && (m_HowToPlayPopUp.activeSelf == false))
+            if ((m_HowToPlayPopUp != null) && (m_HowToPlayPopUp.activeSelf == false))                           //Check if the how to playe pop up is active or not.
             {
                 validClicked = true;
             }
         }
-        else if(i_ColliderName == "ButtonExit")
+        else if(i_ColliderName == "ButtonExit")                                                           
         {
             validClicked = true;
         }

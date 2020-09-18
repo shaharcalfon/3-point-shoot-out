@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Net.Mime;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -14,15 +11,6 @@ public class MainMenuManager : MonoBehaviour
         int highScore = PlayerPrefs.GetInt("HighScore",0);
         m_HighScoreText.text = string.Format("Highscore : {0}",highScore);
     }
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void DisplayHowToPlay(bool i_Active)
     {
         if(m_HowToPlayPopUp != null)
@@ -30,12 +18,10 @@ public class MainMenuManager : MonoBehaviour
             m_HowToPlayPopUp.SetActive(i_Active);
         }
     }
-
     public void StartGame()
     {
         SceneManager.LoadScene("GameScene");
     }
-
     public void QuitGame()
     {
         Application.Quit();

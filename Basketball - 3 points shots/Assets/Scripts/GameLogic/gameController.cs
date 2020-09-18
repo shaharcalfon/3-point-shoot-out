@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class gameController : MonoBehaviour
@@ -19,8 +17,13 @@ public class gameController : MonoBehaviour
     public void EndGame()
     {
         isGameOn = false;
-        m_UIController.timerIsRunning = false;
-        m_UIController.DisplayAndInitEndGameUI();
+        m_UIController.timerIsRunning = false;          //Stop the timer.
+        if (m_PlayerController.m_CurrentBall != null && m_UIController.TimeRemaining <= 0f)      //If the player hold a ball and the time is up, we need to destroy the ball.
+        {
+            m_UIController.HidePowerbar();
+            Destroy(m_PlayerController.m_CurrentBall.gameObject);
+        }
+        m_UIController.DisplayAndInitEndGameUI();       //Display the end game UI when the game is finish.
     }
 
     public void AddThreePoints()
