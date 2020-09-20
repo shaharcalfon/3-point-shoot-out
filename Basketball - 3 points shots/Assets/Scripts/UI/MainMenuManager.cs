@@ -6,6 +6,7 @@ public class MainMenuManager : MonoBehaviour
 {
     [SerializeField]private GameObject m_HowToPlayPopUp;
     [SerializeField] private Text m_HighScoreText;
+    AsyncOperation GameScene;
     void Start() //initialization the high score according to the last highScore
     {
         int highScore = PlayerPrefs.GetInt("HighScore",0);
@@ -20,7 +21,7 @@ public class MainMenuManager : MonoBehaviour
     }
     public void StartGame()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void QuitGame()
     {

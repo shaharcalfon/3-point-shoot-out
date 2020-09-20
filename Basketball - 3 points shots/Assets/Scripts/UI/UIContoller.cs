@@ -23,7 +23,7 @@ public class UIContoller : MonoBehaviour
     void Start()
     {
         timerIsRunning = true;
-        TimeRemaining = 16f;               //The player has 3 minutes.
+        TimeRemaining = 180f;               //The player has 3 minutes.
         initializeEndGameUIRotationsOffsets();
     }
 
