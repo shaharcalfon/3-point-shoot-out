@@ -80,8 +80,8 @@ public class playerController : MonoBehaviour
     private void catchBall()
     {
         m_HandsAnimator.SetTrigger("Catch");                         //Trigger to play the catch animation.     
-        Invoke("setBallParent", 0.1f);
-        Invoke("setBallPosition", 0.15f);
+        //Invoke("setBallParent", 0.1f);
+        //Invoke("setBallPosition", 0.15f);
         m_CurrentBall.gameObject.AddComponent<Rigidbody>();          //Add rigidbody componnet to make it physical object.
         m_CurrentBall.GetComponent<Rigidbody>().useGravity = false;
         holdingBall = true;
@@ -171,7 +171,7 @@ public class playerController : MonoBehaviour
         Vector3 nextPosition = throwPositions[(m_GameController.numberOfShootsThrown / NumberOfBallInRack)];
         m_MainCamera.transform.position = nextPosition;                                                        //Update the main camera position with the next player position.
     }
-    private void setBallPosition()
+    public void SetBallPosition()
     {
         if (m_CurrentBall != null)
         {
@@ -179,7 +179,7 @@ public class playerController : MonoBehaviour
         }
 
     }
-    private void setBallParent()
+    public void SetBallParent()
     {
         if (m_CurrentBall != null) 
         {

@@ -43989,7 +43989,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2, y: 0.2}
   m_AnchorMax: {x: 0.8, y: 0.8}
-  m_AnchoredPosition: {x: -1.376, y: -0.733}
+  m_AnchoredPosition: {x: -1.3759995, y: -0.7330017}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1051287293
@@ -64677,7 +64677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5444e0d40d454458566238f21be525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BallOffset: 1.1
+  m_BallOffset: 0.93
   m_MainCamera: {fileID: 964587562}
   m_GameController: {fileID: 225271047}
   m_PowerBar: {fileID: 333461643}
@@ -96624,6 +96624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000010570041739}
   - component: {fileID: 1000013958645332}
+  - component: {fileID: 1000013958645333}
   m_Layer: 0
   m_Name: Hands
   m_TagString: Untagged
@@ -96650,6 +96651,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1000013958645333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000013958645331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ffee16c19f6b82748814a19e67fd41e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1000014135397429
 GameObject:
   m_ObjectHideFlags: 0
@@ -97118,7 +97131,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1000010848430245}
   m_LocalRotation: {x: -0.4173533, y: -0.613996, z: 0.0011669251, w: -0.6699431}
-  m_LocalPosition: {x: 0.3, y: -0.25, z: 0.88}
+  m_LocalPosition: {x: 0.303, y: -0.18, z: 0.906}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 4000014413436291}
