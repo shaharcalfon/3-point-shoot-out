@@ -25,18 +25,22 @@ public class MainMenuManager : MonoBehaviour
             m_HowToPlayPopUp.SetActive(i_Active);
         }
     }
-    public void StartGame()
-    {
-        m_MainMenu.SetActive(false);
-        m_LoadingScreen.SetActive(true);
-        StartCoroutine(loadLevelAsynchronously(SceneManager.GetActiveScene().buildIndex+1));
-    }
     public void QuitGame()
     {
         Application.Quit();
     }
 
-     private IEnumerator loadLevelAsynchronously(int i_BuildIndex)
+    public void StartGame()
+    {
+        m_MainMenu.SetActive(false);
+        m_LoadingScreen.SetActive(true);
+        Invoke("newCoroutine", 1);                  //Load asynchronously game scene after 1 second.
+    }
+    private void newCoroutine()
+    {
+        StartCoroutine(loadLevelAsynchronously(SceneManager.GetActiveScene().buildIndex + 1));
+    }
+     IEnumerator loadLevelAsynchronously(int i_BuildIndex)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(i_BuildIndex);
 
