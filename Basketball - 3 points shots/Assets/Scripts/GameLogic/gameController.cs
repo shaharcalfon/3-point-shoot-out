@@ -23,7 +23,7 @@ public class gameController : MonoBehaviour
             m_UIController.HidePowerbar();
             Destroy(m_PlayerController.m_CurrentBall.gameObject);
         }
-        m_UIController.DisplayAndInitEndGameUI();       //Display the end game UI when the game is finish.
+        Invoke("DisplayEndGameUI",5f);      //Display the end game UI when the game is finish with 3 second delay.
     }
 
     public void AddThreePoints()
@@ -40,6 +40,10 @@ public class gameController : MonoBehaviour
     public void QuitGame()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+    private void DisplayEndGameUI()
+    {
+        m_UIController.DisplayAndInitEndGameUI();
     }
 
 

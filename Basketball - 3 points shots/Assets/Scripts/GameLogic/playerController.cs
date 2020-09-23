@@ -116,7 +116,7 @@ public class playerController : MonoBehaviour
             }
             if (m_GameController.numberOfShootsThrown == 20)                    //The player throw all the balls - the game is finished.
             {
-                m_GameController.EndGame();                     
+                m_GameController.EndGame();                 
             }
         }
     }
@@ -170,6 +170,7 @@ public class playerController : MonoBehaviour
     {
         Vector3 nextPosition = throwPositions[(m_GameController.numberOfShootsThrown / NumberOfBallInRack)];
         m_MainCamera.transform.position = nextPosition;                                                        //Update the main camera position with the next player position.
+         FindObjectOfType<SoundController>().PlayNbaSound();                                                                      //Play the nba sound.
     }
     public void SetBallPosition()
     {
