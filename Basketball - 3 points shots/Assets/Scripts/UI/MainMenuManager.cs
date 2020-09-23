@@ -34,7 +34,7 @@ public class MainMenuManager : MonoBehaviour
     {
         m_MainMenu.SetActive(false);
         m_LoadingScreen.SetActive(true);
-        Invoke("newCoroutine", 1);                  //Load asynchronously game scene after 1 second.
+        Invoke("newCoroutine", 0.5f);                  //Load asynchronously game scene after 1 second.
     }
     private void newCoroutine()
     {
