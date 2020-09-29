@@ -5,6 +5,8 @@ public class PlayerMainMenu : MonoBehaviour
 {
     [SerializeField] private Camera m_MainCamera;
     [SerializeField] private GameObject m_HowToPlayPopUp;
+    private float m_XScreenOffset = 2f;
+    private float m_YSceenOffset = 2f;
 
     void Update()
     {
@@ -15,11 +17,13 @@ public class PlayerMainMenu : MonoBehaviour
     {
         if(Input.anyKeyDown)
         {
+            Debug.Log("Any Key Down");
             RaycastHit hit;
-            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3((Screen.width / 4f) + m_XScreenOffset, (Screen.height / 2f) - m_YSceenOffset, 0f));
 
             if(Physics.Raycast(myRay, out hit))
             {
+                Debug.Log("" + hit.transform.gameObject.name);
                 string colliderName = hit.transform.gameObject.name;                
                 if(hit.collider != null && isValidClicked(colliderName))
                 {

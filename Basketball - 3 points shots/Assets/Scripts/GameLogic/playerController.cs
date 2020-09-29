@@ -20,6 +20,8 @@ public class playerController : MonoBehaviour
     private float m_BallAngleForce = 180f;
     private Vector3[] throwPositions = new Vector3[5];
     private bool holdingBall = false;
+    private float m_XScreenOffset = 0.1f;
+    private float m_YSceenOffset = 0.065f;
 
     void Start()
     {
@@ -36,7 +38,7 @@ public class playerController : MonoBehaviour
         if(Input.anyKeyDown && !m_GameController.isGameOn)                      //Press the UI Buttons.
         {
             RaycastHit hit;
-            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(Screen.width / 4f + m_XScreenOffset, Screen.height / 2f - m_YSceenOffset, 0f));
 
             if (Physics.Raycast(myRay, out hit))
             {
@@ -58,10 +60,10 @@ public class playerController : MonoBehaviour
         {
             throwingBall();
         }
-        else if (Input.anyKeyDown && /*!Input.GetKeyDown(KeyCode.LeftAlt) &&*/ !holdingBall && m_GameController.isGameOn)   //The player try to catch ball
+        else if (Input.anyKeyDown && !holdingBall && m_GameController.isGameOn)   //The player try to catch ball
         {
             RaycastHit hit;
-            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(Screen.width / 4f + m_XScreenOffset, Screen.height / 2f - m_YSceenOffset, 0f));
 
             if (Physics.Raycast(myRay, out hit))
             {
@@ -80,8 +82,6 @@ public class playerController : MonoBehaviour
     private void catchBall()
     {
         m_HandsAnimator.SetTrigger("Catch");                         //Trigger to play the catch animation.     
-        //Invoke("setBallParent", 0.1f);
-        //Invoke("setBallPosition", 0.15f);
         m_CurrentBall.gameObject.AddComponent<Rigidbody>();          //Add rigidbody componnet to make it physical object.
         m_CurrentBall.GetComponent<Rigidbody>().useGravity = false;
         holdingBall = true;
