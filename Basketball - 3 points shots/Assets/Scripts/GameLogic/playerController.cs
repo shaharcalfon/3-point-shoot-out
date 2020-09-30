@@ -6,7 +6,9 @@ public class playerController : MonoBehaviour
     private const int NumberOfBallInRack = 4;
     private const int NumberOfBallsToThrow = 20;
     [SerializeField] private float m_BallOffset = 0.93f;
+    [SerializeField] private GameObject m_Player;
     [SerializeField] private Camera m_MainCamera;
+
     [SerializeField] private gameController m_GameController;
     [SerializeField] private PowerBar m_PowerBar;
     [SerializeField] private GameObject m_Hands;
@@ -169,7 +171,7 @@ public class playerController : MonoBehaviour
     private void changePosition()
     {
         Vector3 nextPosition = throwPositions[(m_GameController.numberOfShootsThrown / NumberOfBallInRack)];
-        m_MainCamera.transform.position = nextPosition;                                                        //Update the main camera position with the next player position.
+        m_Player.transform.position = nextPosition;                                                        //Update the main camera position with the next player position.
          FindObjectOfType<SoundController>().PlayNbaSound();                                                                      //Play the nba sound.
     }
     public void SetBallPosition()
