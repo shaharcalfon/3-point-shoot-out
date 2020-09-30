@@ -24,7 +24,7 @@ public class UIContoller : MonoBehaviour
     void Start()
     {
         timerIsRunning = true;
-        TimeRemaining = 180f;               //The player has 3 minutes.
+        TimeRemaining = 30f;               //The player has 3 minutes.
         initializeEndGameUIRotationsOffsets();
     }
 
@@ -82,6 +82,18 @@ public class UIContoller : MonoBehaviour
         }
         
     }
+    public void updateHighScores()
+    {
+        if (checkScore())
+        {
+            int[] HighScore = new int[10];
+            initializeHighScores( HighScore);
+            FixHighScores(HighScore);
+            Debug.Log("after Fix" + "place number 1: " + HighScore[0]);
+            updatePlayerPrefs(HighScore);
+        }
+
+    }
     //This method checks if the player achieved score that get inside the High Score table.
     private bool checkScore()
     {
@@ -89,40 +101,30 @@ public class UIContoller : MonoBehaviour
 
         return m_GameController.m_pointsScored > lastScore;
     }
-    public void updateHighScores()
-    {
-        if(checkScore())
-        {
-            int[] HighScore = new int[10];
-            initializeHighScores(HighScore);
-            sortByScore(HighScore);
-            updatePlayerPrefs(HighScore);
-        }
-        
-    }
+    //Initialize ints array with the highscore table values we saved, using player prefs.
     private void initializeHighScores(int[] i_HighScores)
     {
         string Place;
         for (int i = 0; i < numberOfScoresInTheTable; i++)
         {
             Place = string.Format("{0}", i + 1);
-            i_HighScores[i] = int.Parse(Place);
+            i_HighScores[i] = PlayerPrefs.GetInt(Place,0);
         }
+        i_HighScores[numberOfScoresInTheTable - 1] = m_GameController.m_pointsScored;       //The player score more than the 10th value in the table.
+
     }
-    //This method Sort the HighScores Table using bubble sort algorithm.
-    private void sortByScore(int[] i_HighScores)
+    //This method fix the highscore table,the 10th score is a new value in the table
+    private void FixHighScores(int[] i_HighScores)
     {
         int temp;
-        for (int i = 0; i < numberOfScoresInTheTable - 1; i++)
+        Debug.Log("InFix: " + i_HighScores[9]);
+        for (int i = numberOfScoresInTheTable - 1; i > 0; i--)       
         {
-            for (int j = 0; j < numberOfScoresInTheTable - i - 1; j++)
+            if (i_HighScores[i] > i_HighScores[i - 1])
             {
-                if (i_HighScores[j]< i_HighScores[j+1])
-                {
-                    temp = i_HighScores[j];
-                    i_HighScores[j] = i_HighScores[j + 1];
-                    i_HighScores[j + 1] = i_HighScores[j];
-                }
+                temp = i_HighScores[i];
+                i_HighScores[i] = i_HighScores[i - 1];
+                i_HighScores[i - 1] = i_HighScores[i];
             }
         }
     }
@@ -131,13 +133,15 @@ public class UIContoller : MonoBehaviour
         string Place;
         for (int i = 0; i < numberOfScoresInTheTable; i++)
         {
+            
             Place = string.Format("{0}", i + 1);
+            Debug.Log("update the place number:  " + Place + " with the value: " + i_HighScores[i]);
             PlayerPrefs.SetInt(Place, i_HighScores[i]);
         }
     }
     private void updateEndGameUIByResult()
     {
-        int lastHighScore = PlayerPrefs.GetInt("1");                 //Get the highscore.
+        int lastHighScore = PlayerPrefs.GetInt("1",0);                 //Get the highscore.
         if (m_GameController.m_pointsScored > lastHighScore)         //Check if the player achieve new highscore.
         {
             m_EndGameCanvasClone.transform.Find("EndGameImage").Find("NewHighScore").gameObject.SetActive(true);        //Display the new highscore text.                                          //Update the new highscore.       

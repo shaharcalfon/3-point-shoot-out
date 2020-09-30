@@ -5,7 +5,7 @@ public class playerController : MonoBehaviour
 {
     private const int NumberOfBallInRack = 4;
     private const int NumberOfBallsToThrow = 20;
-    [SerializeField] private float m_BallOffset = 0.96f;
+    [SerializeField] private float m_BallOffset = 0.98f;
     [SerializeField] private GameObject m_Player;
     [SerializeField] private Camera m_MainCamera;
 
@@ -40,7 +40,7 @@ public class playerController : MonoBehaviour
         if(Input.anyKeyDown && !m_GameController.isGameOn)                      //Press the UI Buttons.
         {
             RaycastHit hit;
-            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(m_XScreenOffset * Screen.width, m_YSceenOffset * Screen.height, 0f));
+            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
 
             if (Physics.Raycast(myRay, out hit))
             {
@@ -65,7 +65,7 @@ public class playerController : MonoBehaviour
         else if (Input.anyKeyDown && !holdingBall && m_GameController.isGameOn)   //The player try to catch ball
         {
             RaycastHit hit;
-            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(m_XScreenOffset * Screen.width, m_YSceenOffset * Screen.height, 0f));
+            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
 
             if (Physics.Raycast(myRay, out hit))
             {

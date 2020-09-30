@@ -20,7 +20,7 @@ public class PlayerMainMenu : MonoBehaviour
         {
             Debug.Log("Any Key Down");
             RaycastHit hit;
-            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(m_XScreenOffset*Screen.width, m_YSceenOffset * Screen.height, 0f));
+            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(Screen.width/2f,Screen.height/2f, 0f));
             Debug.Log("Width: " + Screen.width);
             Debug.Log("Height: " + Screen.height);
 

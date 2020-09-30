@@ -14,9 +14,9 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Text[] PlayersScoreArray;
 
     private const int numberOfScoresInTheTable = 10;
-
     AsyncOperation GameScene;
-    void Start() //initialization the highscores.
+
+    void Awake() //initialization the highscores.
     {
         InitializeHighScoresTabel();
     }
@@ -71,6 +71,7 @@ public class MainMenuManager : MonoBehaviour
         for (int i = 0; i < numberOfScoresInTheTable; i++) 
         {
             Place = string.Format("{0}", i + 1);
+            Debug.Log(PlayerPrefs.GetInt(Place, 0).ToString());
             PlayersScoreArray[i].text = PlayerPrefs.GetInt(Place, 0).ToString();
         }
     }
