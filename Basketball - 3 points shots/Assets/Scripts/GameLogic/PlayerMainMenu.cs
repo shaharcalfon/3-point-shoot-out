@@ -5,6 +5,7 @@ public class PlayerMainMenu : MonoBehaviour
 {
     [SerializeField] private Camera m_MainCamera;
     [SerializeField] private GameObject m_HowToPlayPopUp;
+    [SerializeField] private GameObject m_HighScoresPopUp;
     private float m_XScreenOffset = 2f;
     private float m_YSceenOffset = 2f;
 
@@ -36,9 +37,9 @@ public class PlayerMainMenu : MonoBehaviour
     private bool isValidClicked(string i_ColliderName)
     {
         bool validClicked = false;
-        if(i_ColliderName == "ButtonStart" || i_ColliderName == "ButtonQuit" || i_ColliderName == "ButtonHowToPlay")
+        if(i_ColliderName == "ButtonStart" || i_ColliderName == "ButtonQuit" || i_ColliderName == "ButtonHowToPlay" || i_ColliderName == "ButtonHighScores")
         {
-            if ((m_HowToPlayPopUp != null) && (m_HowToPlayPopUp.activeSelf == false))                           //Check if the how to playe pop up is active or not.
+            if ((m_HowToPlayPopUp.activeSelf == false) && (m_HighScoresPopUp.activeSelf == false))                
             {
                 validClicked = true;
             }
