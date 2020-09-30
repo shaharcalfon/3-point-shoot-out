@@ -6,23 +6,32 @@ using UnityEngine.UI;
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField] private GameObject m_HowToPlayPopUp;
+    [SerializeField] private GameObject m_HighScoresPopUp;
     [SerializeField] private GameObject m_MainMenu;
-    [SerializeField] private Text m_HighScoreText;
     [SerializeField] private GameObject m_LoadingScreen;
     [SerializeField] private Slider m_Slider;
     [SerializeField] private Text m_ProgressPercentageText;
+    [SerializeField] private Text[] PlayersScoreArray;
+
+    private const int numberOfScoresInTheTable = 10;
 
     AsyncOperation GameScene;
-    void Start() //initialization the high score according to the last highScore
+    void Start() //initialization the highscores.
     {
-        int highScore = PlayerPrefs.GetInt("HighScore",0);
-        m_HighScoreText.text = string.Format("Highscore : {0}",highScore);
+        InitializeHighScoresTabel();
     }
     public void DisplayHowToPlay(bool i_Active)
     {
         if(m_HowToPlayPopUp != null)
         {
             m_HowToPlayPopUp.SetActive(i_Active);
+        }
+    }
+    public void DisplayHighScores(bool i_Active)
+    {
+        if (m_HighScoresPopUp != null)
+        {
+            m_HighScoresPopUp.SetActive(i_Active);
         }
     }
     public void QuitGame()
@@ -34,13 +43,15 @@ public class MainMenuManager : MonoBehaviour
     {
         m_MainMenu.SetActive(false);
         m_LoadingScreen.SetActive(true);
-        Invoke("newCoroutine", 0.5f);                  //Load asynchronously game scene after 1 second.
+        Invoke("newGameCoroutine", 0.5f);                  //Load asynchronously game scene after 1 second.
     }
-    private void newCoroutine()
+    
+
+    private void newGameCoroutine()
     {
-        StartCoroutine(loadLevelAsynchronously(SceneManager.GetActiveScene().buildIndex + 1));
+        StartCoroutine(loadGameAsynchronously(SceneManager.GetActiveScene().buildIndex + 1));
     }
-     IEnumerator loadLevelAsynchronously(int i_BuildIndex)
+     IEnumerator loadGameAsynchronously(int i_BuildIndex)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(i_BuildIndex);
 
@@ -52,6 +63,15 @@ public class MainMenuManager : MonoBehaviour
             m_ProgressPercentageText.text = (progress * 100f).ToString("0") + "%";
 
             yield return null;
+        }
+    }
+    private void InitializeHighScoresTabel()
+    {
+        string Place;
+        for (int i = 0; i < numberOfScoresInTheTable; i++) 
+        {
+            Place = string.Format("{0}", i + 1);
+            PlayersScoreArray[i].text = PlayerPrefs.GetInt(Place, 0).ToString();
         }
     }
 }

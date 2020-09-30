@@ -5,6 +5,7 @@ public class UIContoller : MonoBehaviour
 {
     private const int NumberOfPostions = 5;
     private const int NumberOfBallsToThrow = 20;
+    private const int numberOfScoresInTheTable = 10;
     [SerializeField] private Text m_RightBasketTimer;
     [SerializeField] private Text m_LeftBasketTimer;
     [SerializeField] private Text m_score;
@@ -81,13 +82,65 @@ public class UIContoller : MonoBehaviour
         }
         
     }
+    //This method checks if the player achieved score that get inside the High Score table.
+    private bool checkScore()
+    {
+        int lastScore = PlayerPrefs.GetInt("10");           //Get the 10th score in the table.
+
+        return m_GameController.m_pointsScored > lastScore;
+    }
+    public void updateHighScores()
+    {
+        if(checkScore())
+        {
+            int[] HighScore = new int[10];
+            initializeHighScores(HighScore);
+            sortByScore(HighScore);
+            updatePlayerPrefs(HighScore);
+        }
+        
+    }
+    private void initializeHighScores(int[] i_HighScores)
+    {
+        string Place;
+        for (int i = 0; i < numberOfScoresInTheTable; i++)
+        {
+            Place = string.Format("{0}", i + 1);
+            i_HighScores[i] = int.Parse(Place);
+        }
+    }
+    //This method Sort the HighScores Table using bubble sort algorithm.
+    private void sortByScore(int[] i_HighScores)
+    {
+        int temp;
+        for (int i = 0; i < numberOfScoresInTheTable - 1; i++)
+        {
+            for (int j = 0; j < numberOfScoresInTheTable - i - 1; j++)
+            {
+                if (i_HighScores[j]< i_HighScores[j+1])
+                {
+                    temp = i_HighScores[j];
+                    i_HighScores[j] = i_HighScores[j + 1];
+                    i_HighScores[j + 1] = i_HighScores[j];
+                }
+            }
+        }
+    }
+    private void updatePlayerPrefs(int[] i_HighScores)
+    {
+        string Place;
+        for (int i = 0; i < numberOfScoresInTheTable; i++)
+        {
+            Place = string.Format("{0}", i + 1);
+            PlayerPrefs.SetInt(Place, i_HighScores[i]);
+        }
+    }
     private void updateEndGameUIByResult()
     {
-        int lastHighScore = PlayerPrefs.GetInt("HighScore");        //Get the last highscore.
+        int lastHighScore = PlayerPrefs.GetInt("1");                 //Get the highscore.
         if (m_GameController.m_pointsScored > lastHighScore)         //Check if the player achieve new highscore.
         {
-            m_EndGameCanvasClone.transform.Find("EndGameImage").Find("NewHighScore").gameObject.SetActive(true);        //Display the new highscore text.
-            PlayerPrefs.SetInt("HighScore", m_GameController.m_pointsScored);                                           //Update the new highscore.       
+            m_EndGameCanvasClone.transform.Find("EndGameImage").Find("NewHighScore").gameObject.SetActive(true);        //Display the new highscore text.                                          //Update the new highscore.       
         }
         string currentGameScoreText = string.Format("Your Score: {0}", m_GameController.m_pointsScored);
         m_EndGameCanvasClone.transform.Find("EndGameImage").Find("YourScore").GetComponent<Text>().text = currentGameScoreText;  //Update the current score.
@@ -111,4 +164,5 @@ public class UIContoller : MonoBehaviour
         m_PowerBarCanvas.SetActive(true);               //Dispaye the power bar.
         m_PowerBar.TurnOnPowerBar();                    //When the player holding the ball we need to turn on the power bar.
     }
+
 }

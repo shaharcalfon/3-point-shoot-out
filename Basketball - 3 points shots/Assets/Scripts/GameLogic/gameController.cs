@@ -23,6 +23,7 @@ public class gameController : MonoBehaviour
             m_UIController.HidePowerbar();
             Destroy(m_PlayerController.m_CurrentBall.gameObject);
         }
+        m_UIController.updateHighScores();  //Update the HighScores Table according the current game score.
         Invoke("DisplayEndGameUI",5f);      //Display the end game UI when the game is finish with 3 second delay.
     }
 
