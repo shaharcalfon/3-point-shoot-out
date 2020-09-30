@@ -112,7 +112,8 @@ public class playerController : MonoBehaviour
             Destroy(holdingBallToDestroy.gameObject, 7);                         //Destroy the ball 7 seconds after the ball is thrown.
             holdingBall = false;                                                 //The player is not holding a ball.
             m_GameController.numberOfShootsThrown++;                             //Increase the number of shoots thrown.
-            if (m_GameController.numberOfShootsThrown % NumberOfBallInRack == 0 && m_GameController.numberOfShootsThrown < NumberOfBallsToThrow) //Check if the player need to change position.
+            if (m_GameController.numberOfShootsThrown % NumberOfBallInRack == 0 &&
+                m_GameController.numberOfShootsThrown < NumberOfBallsToThrow)           //Check if the player need to change position.
             {
                 Invoke("changePosition", 2);                                     //Change the position after 2 second.
             }

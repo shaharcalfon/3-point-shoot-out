@@ -16,7 +16,7 @@ public class UIContoller : MonoBehaviour
     [SerializeField] private PowerBar m_PowerBar;
     public float TimeRemaining { get; private set; }
     public bool timerIsRunning = false;
-    private Vector3 m_EndGameUIposition = new Vector3(-0.45f, -0.45f, -15.7f);
+    private Vector3 m_EndGameUIposition = new Vector3(0f, 0f, -15.75f);
     private float[] m_EndGameUIRotationsOffsets = new float[5];
     private Canvas m_EndGameCanvasClone;
     private float m_SecondCounter = 0;
