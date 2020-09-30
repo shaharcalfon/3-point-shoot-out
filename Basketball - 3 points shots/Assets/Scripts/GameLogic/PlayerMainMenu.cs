@@ -20,6 +20,7 @@ public class PlayerMainMenu : MonoBehaviour
             Debug.Log("Any Key Down");
             RaycastHit hit;
             Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3((Screen.width / 4f) + m_XScreenOffset, (Screen.height / 2f) - m_YSceenOffset, 0f));
+            Debug.Log("Width: " + Screen.width / 4);
 
             if(Physics.Raycast(myRay, out hit))
             {
