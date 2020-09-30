@@ -16,7 +16,7 @@ public class MainMenuManager : MonoBehaviour
     private const int numberOfScoresInTheTable = 10;
     AsyncOperation GameScene;
 
-    void Awake() //initialization the highscores.
+    void Start() //initialization the highscores.
     {
         InitializeHighScoresTabel();
     }

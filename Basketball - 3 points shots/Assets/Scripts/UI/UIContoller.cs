@@ -24,7 +24,7 @@ public class UIContoller : MonoBehaviour
     void Start()
     {
         timerIsRunning = true;
-        TimeRemaining = 30f;               //The player has 3 minutes.
+        TimeRemaining = 40f;               //The player has 3 minutes.
         initializeEndGameUIRotationsOffsets();
     }
 
@@ -47,6 +47,7 @@ public class UIContoller : MonoBehaviour
             }
             if (TimeRemaining <= 0f)    //The time is up - game finished.
             {
+                Debug.Log("finish game");
                 timerIsRunning = false;
                 m_GameController.EndGame();
             }
@@ -82,6 +83,16 @@ public class UIContoller : MonoBehaviour
         }
         
     }
+    private void updateEndGameUIByResult()
+    {
+        int lastHighScore = PlayerPrefs.GetInt("1", 0);                 //Get the highscore.
+        if (m_GameController.m_pointsScored > lastHighScore)         //Check if the player achieve new highscore.
+        {
+            m_EndGameCanvasClone.transform.Find("EndGameImage").Find("NewHighScore").gameObject.SetActive(true);        //Display the new highscore text.                                          //Update the new highscore.       
+        }
+        string currentGameScoreText = string.Format("Your Score: {0}", m_GameController.m_pointsScored);
+        m_EndGameCanvasClone.transform.Find("EndGameImage").Find("YourScore").GetComponent<Text>().text = currentGameScoreText;  //Update the current score.
+    }
     public void updateHighScores()
     {
         if (checkScore())
@@ -89,7 +100,6 @@ public class UIContoller : MonoBehaviour
             int[] HighScore = new int[10];
             initializeHighScores( HighScore);
             FixHighScores(HighScore);
-            Debug.Log("after Fix" + "place number 1: " + HighScore[0]);
             updatePlayerPrefs(HighScore);
         }
 
@@ -117,14 +127,13 @@ public class UIContoller : MonoBehaviour
     private void FixHighScores(int[] i_HighScores)
     {
         int temp;
-        Debug.Log("InFix: " + i_HighScores[9]);
         for (int i = numberOfScoresInTheTable - 1; i > 0; i--)       
         {
             if (i_HighScores[i] > i_HighScores[i - 1])
             {
                 temp = i_HighScores[i];
                 i_HighScores[i] = i_HighScores[i - 1];
-                i_HighScores[i - 1] = i_HighScores[i];
+                i_HighScores[i - 1] = temp;
             }
         }
     }
@@ -133,22 +142,11 @@ public class UIContoller : MonoBehaviour
         string Place;
         for (int i = 0; i < numberOfScoresInTheTable; i++)
         {
-            
             Place = string.Format("{0}", i + 1);
-            Debug.Log("update the place number:  " + Place + " with the value: " + i_HighScores[i]);
             PlayerPrefs.SetInt(Place, i_HighScores[i]);
         }
     }
-    private void updateEndGameUIByResult()
-    {
-        int lastHighScore = PlayerPrefs.GetInt("1",0);                 //Get the highscore.
-        if (m_GameController.m_pointsScored > lastHighScore)         //Check if the player achieve new highscore.
-        {
-            m_EndGameCanvasClone.transform.Find("EndGameImage").Find("NewHighScore").gameObject.SetActive(true);        //Display the new highscore text.                                          //Update the new highscore.       
-        }
-        string currentGameScoreText = string.Format("Your Score: {0}", m_GameController.m_pointsScored);
-        m_EndGameCanvasClone.transform.Find("EndGameImage").Find("YourScore").GetComponent<Text>().text = currentGameScoreText;  //Update the current score.
-    }
+    
     private void initializeEndGameUIRotationsOffsets()
     { 
         float angle = 0f;

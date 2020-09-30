@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class PowerBar : MonoBehaviour
 {
     [SerializeField] private Image m_PowerBarMask;
-    [SerializeField] private float m_BarChangeSpeed = 3.5f;
+    [SerializeField] private float m_BarChangeSpeed = 5f;
     private float m_MaxPowerBarValue = 100;
     private float m_CurrentPowerBarValue;
     private bool isIncreasing;

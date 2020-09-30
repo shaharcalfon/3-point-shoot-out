@@ -18,10 +18,10 @@ public class playerController : MonoBehaviour
     [SerializeField] private UIContoller m_UIController;
 
     public Transform m_CurrentBall;
+    public bool holdingBall = false;
     private float m_BallThrowingForce = 515f;
     private float m_BallAngleForce = 180f;
     private Vector3[] throwPositions = new Vector3[5];
-    private bool holdingBall = false;
     private float m_XScreenOffset = 0.257f;
     private float m_YSceenOffset = 0.494f;
 
