@@ -45,8 +45,6 @@ public class MainMenuManager : MonoBehaviour
         m_LoadingScreen.SetActive(true);
         Invoke("newGameCoroutine", 0.5f);                  //Load asynchronously game scene after 1 second.
     }
-    
-
     private void newGameCoroutine()
     {
         StartCoroutine(loadGameAsynchronously(SceneManager.GetActiveScene().buildIndex + 1));
@@ -71,7 +69,6 @@ public class MainMenuManager : MonoBehaviour
         for (int i = 0; i < numberOfScoresInTheTable; i++) 
         {
             Place = string.Format("{0}", i + 1);
-            Debug.Log(PlayerPrefs.GetInt(Place, 0).ToString());
             PlayersScoreArray[i].text = PlayerPrefs.GetInt(Place, 0).ToString();
         }
     }
