@@ -5,7 +5,7 @@ public class playerController : MonoBehaviour
 {
     private const int NumberOfBallInRack = 4;
     private const int NumberOfBallsToThrow = 20;
-    [SerializeField] private float m_BallOffset = 0.98f;
+    [SerializeField] private float m_BallOffset = 0.8f;
     [SerializeField] private GameObject m_Player;
     [SerializeField] private Camera m_MainCamera;
 
@@ -178,8 +178,8 @@ public class playerController : MonoBehaviour
     public void SetBallPosition()
     {
         if (m_CurrentBall != null)
-        {
-            m_CurrentBall.transform.position = m_MainCamera.transform.position + m_MainCamera.transform.forward * m_BallOffset;
+        { 
+            m_CurrentBall.transform.position = m_Hands.transform.position + m_Hands.transform.forward * m_BallOffset;
         }
 
     }
