@@ -40,7 +40,7 @@ public class playerController : MonoBehaviour
         if(Input.anyKeyDown && !m_GameController.isGameOn)                      //Press the UI Buttons.
         {
             RaycastHit hit;
-            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(/*m_XScreenOffset */ Screen.width/2,/* m_YSceenOffset */ Screen.height/2, 0f));
+            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(m_XScreenOffset * Screen.width,m_YSceenOffset * Screen.height, 0f));
 
             if (Physics.Raycast(myRay, out hit))
             {
@@ -65,7 +65,7 @@ public class playerController : MonoBehaviour
         else if (Input.anyKeyDown && !holdingBall && m_GameController.isGameOn)   //The player try to catch ball
         {
             RaycastHit hit;
-            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(/*m_XScreenOffset */ Screen.width/2,/* m_YSceenOffset */ Screen.height/2, 0f));
+            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(m_XScreenOffset * Screen.width,m_YSceenOffset * Screen.height, 0f));
 
             if (Physics.Raycast(myRay, out hit))
             {
