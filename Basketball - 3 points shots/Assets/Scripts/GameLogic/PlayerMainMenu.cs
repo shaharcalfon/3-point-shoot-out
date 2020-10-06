@@ -6,8 +6,8 @@ public class PlayerMainMenu : MonoBehaviour
     [SerializeField] private Camera m_MainCamera;
     [SerializeField] private GameObject m_HowToPlayPopUp;
     [SerializeField] private GameObject m_HighScoresPopUp;
-    private float m_XScreenOffset = 0.275f;
-    private float m_YSceenOffset = 0.525f;
+    private float m_XScreenOffset = 0.5f;
+    private float m_YSceenOffset = 0.5f;
 
     void Update()
     {
