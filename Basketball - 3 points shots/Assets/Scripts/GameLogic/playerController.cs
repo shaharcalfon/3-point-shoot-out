@@ -71,7 +71,7 @@ public class playerController : MonoBehaviour
             {
                 if (hit.collider != null)
                 {
-                    if (hit.collider.tag == "Ball" && CheckCorrectBallsRack(hit.collider.transform.parent.name))
+                    if (hit.collider.tag == "Ball" && hit.collider.transform.parent !=null && CheckCorrectBallsRack(hit.collider.transform.parent.name))
                     {
                         m_CurrentBall = hit.transform;                                         //Update the ball reference to the current ball we hit.
                         catchBall();
