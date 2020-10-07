@@ -15691,7 +15691,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 3 Points Shots - Game Instruction
+  m_Text: 3 Point Shoot Out - Game Instruction
 --- !u!222 &532226903
 CanvasRenderer:
   m_ObjectHideFlags: 0
