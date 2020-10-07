@@ -47,7 +47,6 @@ public class UIContoller : MonoBehaviour
             }
             if (TimeRemaining <= 0f)    //The time is up - game finished.
             {
-                Debug.Log("finish game");
                 timerIsRunning = false;
                 m_GameController.EndGame();
             }

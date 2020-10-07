@@ -175,7 +175,7 @@ public class playerController : MonoBehaviour
     {
         Vector3 nextPosition = throwPositions[(m_GameController.numberOfShootsThrown / NumberOfBallInRack)];
         m_Player.transform.position = nextPosition;                                                        //Update the main camera position with the next player position.
-         FindObjectOfType<SoundController>().PlayNbaSound();                                                                      //Play the nba sound.
+        FindObjectOfType<SoundController>().PlayNbaSound();                                                //Play the nba sound.
     }
     public void SetBallPosition()
     {

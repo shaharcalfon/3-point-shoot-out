@@ -21,6 +21,14 @@ public class SoundController : MonoBehaviour
     {
         NbaSound.Play();
     }
+    public void StopNbaSound()
+    {
+        if(NbaSound.isPlaying)
+        {
+            NbaSound.Stop();
+        }
+        
+    }
     
 
 }
