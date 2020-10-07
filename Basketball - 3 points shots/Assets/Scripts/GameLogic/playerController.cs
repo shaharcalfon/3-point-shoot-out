@@ -83,8 +83,8 @@ public class playerController : MonoBehaviour
 
     private void catchBall()
     {
-        m_HandsAnimator.SetTrigger("Catch");                         //Trigger to play the catch animation.     
         m_CurrentBall.gameObject.AddComponent<Rigidbody>();          //Add rigidbody componnet to make it physical object.
+        m_HandsAnimator.SetTrigger("Catch");                         //Trigger to play the catch animation.     
         m_CurrentBall.GetComponent<Rigidbody>().useGravity = false;
         holdingBall = true;
         m_UIController.DisplayPowerBar();
@@ -130,6 +130,7 @@ public class playerController : MonoBehaviour
         {
             m_CurrentBall.GetComponent<Rigidbody>().useGravity = true;           //Update the useGravity field.
             float balancedPower = ThrowingPowerBalance(m_PowerBar.FillAmount); //Balance the throw power according the actual fill amount of the power bar.
+            m_CurrentBall.GetComponent<Rigidbody>().freezeRotation = false;
             m_CurrentBall.GetComponent<Rigidbody>().AddForce((m_MainCamera.transform.forward * m_BallThrowingForce * balancedPower) + m_MainCamera.transform.up * m_BallAngleForce);
             m_CurrentBall.SetParent(null);                                      
             m_CurrentBall = null;                                               //The player not holding a ball.
@@ -180,6 +181,7 @@ public class playerController : MonoBehaviour
         if (m_CurrentBall != null)
         { 
             m_CurrentBall.transform.position = m_Hands.transform.position + m_Hands.transform.forward * m_BallOffset;
+            m_CurrentBall.GetComponent<Rigidbody>().freezeRotation = true;              //freeze the ball rotation to prevent him to slip from the hands.
         }
 
     }
