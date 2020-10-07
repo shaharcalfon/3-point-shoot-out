@@ -7,7 +7,6 @@ public class UIContoller : MonoBehaviour
     private const int NumberOfBallsToThrow = 20;
     private const int numberOfScoresInTheTable = 10;
     [SerializeField] private Text m_RightBasketTimer;
-    [SerializeField] private Text m_LeftBasketTimer;
     [SerializeField] private Text m_score;
     [SerializeField] private Canvas m_EndGameCanvas;
     [SerializeField] private Camera m_MainCamera;
@@ -58,7 +57,6 @@ public class UIContoller : MonoBehaviour
         float minutes = Mathf.FloorToInt(TimeRemaining / 60);                   //Calculate the minutes.
         float seconds = Mathf.FloorToInt(TimeRemaining % 60);                   //Calculate the seconds;
         m_RightBasketTimer.text = string.Format("{0:00}:{1:00}", minutes, seconds);        
-        m_LeftBasketTimer.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
     public void UpdateScoreText()
     {
