@@ -22,8 +22,8 @@ public class playerController : MonoBehaviour
     private float m_BallThrowingForce = 515f;
     private float m_BallAngleForce = 180f;
     private Vector3[] throwPositions = new Vector3[5];
-    private float m_XScreenOffset = 0.5f;
-    private float m_YSceenOffset = 0.5f;
+    private float m_XScreenOffset = 0.275f;
+    private float m_YSceenOffset = 0.525f;
 
     void Start()
     {
