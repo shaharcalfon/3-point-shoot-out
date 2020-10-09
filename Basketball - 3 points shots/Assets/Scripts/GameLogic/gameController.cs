@@ -3,16 +3,18 @@ using UnityEngine.SceneManagement;
 
 public class gameController : MonoBehaviour
 {
+    private const int ScoreValue = 3;
     [SerializeField] private UIContoller m_UIController;
     [SerializeField] private playerController m_PlayerController;
     [SerializeField] private SoundController m_SoundController;
     public int m_pointsScored = 0;
-    public int numberOfShootsThrown = 0;
+    public int NumberOfShootsThrown { get; set; }
     public bool isGameOn { get; set; }
 
     private void Start()
     {
-        Application.targetFrameRate = 40;
+        //Application.targetFrameRate = 40;
+        NumberOfShootsThrown = 0;
         isGameOn = true;
     }
 
@@ -20,7 +22,7 @@ public class gameController : MonoBehaviour
     {
         m_SoundController.StopNbaSound();                             //Stop Nba Sound when the game is finish.
         isGameOn = false;
-        m_UIController.timerIsRunning = false;          //Stop the timer.
+        m_UIController.timerIsRunning = false;                        //Stop the timer.
         if (m_PlayerController.holdingBall && m_UIController.TimeRemaining <= 0f)      //If the player hold a ball and the time is up, we need to destroy the ball.
         {
             m_UIController.HidePowerbar();
@@ -31,8 +33,7 @@ public class gameController : MonoBehaviour
 
     public void AddThreePoints()
     {
-        m_pointsScored += 3;
-
+        m_pointsScored += ScoreValue;             
     }
 
     public void Restart()

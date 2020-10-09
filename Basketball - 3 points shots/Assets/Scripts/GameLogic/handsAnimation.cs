@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class handsAnimation : MonoBehaviour
 {
+    [SerializeField] private playerController m_playerController;
     public void SetBallParent()
     {
-        FindObjectOfType<playerController>().SetBallParent();
+        m_playerController.SetBallParent();
     }
     public void SetBallPosition()
     {
-        FindObjectOfType<playerController>().SetBallPosition();
+        m_playerController.SetBallPosition();
     }
 }

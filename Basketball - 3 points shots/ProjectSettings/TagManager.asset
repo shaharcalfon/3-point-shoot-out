@@ -10,6 +10,11 @@ TagManager:
   - Ball
   - Balls Rack
   - Glass
+  - EndGameImage
+  - ButtonRestart
+  - ButtonQuit
+  - HighScoreText
+  - ScoreText
   layers:
   - Default
   - TransparentFX

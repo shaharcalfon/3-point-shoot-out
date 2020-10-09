@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
+    private const int numberOfScoresInTheTable = 10;
+
     [SerializeField] private GameObject m_HowToPlayPopUp;
     [SerializeField] private GameObject m_HighScoresPopUp;
     [SerializeField] private GameObject m_MainMenu;
@@ -13,10 +15,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private Text m_ProgressPercentageText;
     [SerializeField] private Text[] PlayersScoreArray;
 
-    private const int numberOfScoresInTheTable = 10;
-    AsyncOperation GameScene;
-
-    void Start() //initialization the highscores.
+    void Start() //initialization the highscores and the traget frame rate.
     {
         Application.targetFrameRate = 40;
         InitializeHighScoresTabel();
@@ -44,7 +43,7 @@ public class MainMenuManager : MonoBehaviour
     {
         m_MainMenu.SetActive(false);
         m_LoadingScreen.SetActive(true);
-        Invoke("newGameCoroutine", 0.5f);                  //Load asynchronously game scene after 1 second.
+        Invoke("newGameCoroutine", 0.5f);                  //Load asynchronously game scene after 0.5 second.
     }
     private void newGameCoroutine()
     {
@@ -58,8 +57,8 @@ public class MainMenuManager : MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
 
-            m_Slider.value = progress;
-            m_ProgressPercentageText.text = (progress * 100f).ToString("0") + "%";
+            m_Slider.value = progress;                                                  //Update the slider.
+            m_ProgressPercentageText.text = (progress * 100f).ToString("0") + "%";      //Update the progress percentage
 
             yield return null;
         }

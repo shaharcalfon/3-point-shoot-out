@@ -3,18 +3,20 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PowerBar : MonoBehaviour
 {
+    private const float MaxPowerBarValue = 100;
+    private const float BarChangeSpeed = 5f;
+
     [SerializeField] private Image m_PowerBarMask;
-    [SerializeField] private float m_BarChangeSpeed = 5f;
-    private float m_MaxPowerBarValue = 100;
+
     private float m_CurrentPowerBarValue;
     private bool isIncreasing;
-    public float FillAmount { get; private set;}
     public bool PowerBarOn;
+    public float FillAmount { get; private set;}
 
 
     public void TurnOnPowerBar()
     {
-        m_CurrentPowerBarValue = m_MaxPowerBarValue;        //The bar is full.
+        m_CurrentPowerBarValue = MaxPowerBarValue;        //The bar is full.
         isIncreasing = false;
         PowerBarOn = true;
         StartCoroutine(UpdatePowerBar());
@@ -25,28 +27,27 @@ public class PowerBar : MonoBehaviour
     {
         while(PowerBarOn)
         {
-            if(!isIncreasing)
+            if(!isIncreasing)               //Reduce the fill
             {
-                m_CurrentPowerBarValue -= m_BarChangeSpeed;
+                m_CurrentPowerBarValue -= BarChangeSpeed;
                 if(m_CurrentPowerBarValue <= 0)
                 {
                     isIncreasing = true;
                 }
             }
-            if (isIncreasing)
+            if (isIncreasing)               //Increase the fill
             {
-                m_CurrentPowerBarValue += m_BarChangeSpeed;
-                if (m_CurrentPowerBarValue >= m_MaxPowerBarValue)
+                m_CurrentPowerBarValue += BarChangeSpeed;
+                if (m_CurrentPowerBarValue >= MaxPowerBarValue)
                 {
                     isIncreasing = false;
                 }
             }
-            FillAmount = m_CurrentPowerBarValue / m_MaxPowerBarValue;
+            FillAmount = m_CurrentPowerBarValue / MaxPowerBarValue;         //fill amount value is between 0 to 1.
             m_PowerBarMask.fillAmount = FillAmount;
             yield return new WaitForSeconds(0.02f);
         }
         yield return null;
-        
     }
 
 }

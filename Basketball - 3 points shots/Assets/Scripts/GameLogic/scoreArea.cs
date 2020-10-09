@@ -2,13 +2,18 @@
 
 public class scoreArea : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    [SerializeField] gameController m_gameController;
+    [SerializeField] UIContoller m_UIController;
+    [SerializeField] SoundController m_SoundController;
+
+    //This method invoke when the player is made score.
+    private void OnTriggerEnter(Collider other)         
     {
         if(other.gameObject.tag=="Ball")
         {
-            FindObjectOfType<gameController>().AddThreePoints();
-            FindObjectOfType<UIContoller>().UpdateScoreText();
-            FindObjectOfType<SoundController>().ScoreThreePointsAudio();
+            m_gameController.AddThreePoints();
+            m_UIController.UpdateScoreText();
+            m_SoundController.ScoreThreePointsAudio();
         }
     }
 }

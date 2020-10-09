@@ -3,12 +3,13 @@ using UnityEngine.UI;
 
 public class PlayerMainMenu : MonoBehaviour
 {
+    private const float XScreenOffset = 0.275f;
+    private const float YSceenOffset = 0.525f;
+
     [SerializeField] private Camera m_MainCamera;
     [SerializeField] private GameObject m_HowToPlayPopUp;
     [SerializeField] private GameObject m_HighScoresPopUp;
-    private float m_XScreenOffset = 0.275f;
-    private float m_YSceenOffset = 0.525f;
-
+    
     void Update()
     {
         checkInput();
@@ -19,18 +20,17 @@ public class PlayerMainMenu : MonoBehaviour
         if(Input.anyKeyDown)
         {
             RaycastHit hit;
-            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(m_XScreenOffset * Screen.width, m_YSceenOffset * Screen.height, 0f));
+            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(XScreenOffset * Screen.width, YSceenOffset * Screen.height, 0f));
             if(Physics.Raycast(myRay, out hit))
-            {
-                Debug.Log("" + hit.transform.gameObject.name);
-                string colliderName = hit.transform.gameObject.name;                
-                if(hit.collider != null && isValidClicked(colliderName))
+            {         
+                if(hit.collider != null && isValidClicked(hit.transform.gameObject.name))       
                 {
                     hit.transform.gameObject.GetComponent<Button>().onClick.Invoke();
                 }
             }
         }
     }
+
     private bool isValidClicked(string i_ColliderName)
     {
         bool validClicked = false;
@@ -41,7 +41,7 @@ public class PlayerMainMenu : MonoBehaviour
                 validClicked = true;
             }
         }
-        else if(i_ColliderName == "ButtonExit")                                                           
+        else if(i_ColliderName == "ButtonExit" && ((m_HowToPlayPopUp.activeSelf == true) || (m_HighScoresPopUp.activeSelf == true)))      // The player try to close pop up.                                                     
         {
             validClicked = true;
         }

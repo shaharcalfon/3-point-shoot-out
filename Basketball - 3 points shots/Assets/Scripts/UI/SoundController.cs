@@ -2,33 +2,30 @@
 
 public class SoundController : MonoBehaviour
 {
-    [SerializeField] private AudioSource tenSecondsAudio;
-    [SerializeField] private AudioSource buzzerAudio;
-    [SerializeField] private AudioSource audienceClappingAudio;
-    [SerializeField] private AudioSource NbaSound;
+    [SerializeField] private AudioSource m_TenSecondsAudio;
+    [SerializeField] private AudioSource m_BuzzerAudio;
+    [SerializeField] private AudioSource m_AudienceClappingAudio;
+    [SerializeField] private AudioSource m_NbaSound;
 
     //This methods play the audio clip of the relevant audio sources.
     public void LastTenSeconds()
     {
-        tenSecondsAudio.Play();
-        buzzerAudio.PlayDelayed(10f);
+        m_TenSecondsAudio.Play();
+        m_BuzzerAudio.PlayDelayed(10f);
     }
     public void ScoreThreePointsAudio()
     {
-        audienceClappingAudio.Play();
+        m_AudienceClappingAudio.Play();
     }
     public void PlayNbaSound()
     {
-        NbaSound.Play();
+        m_NbaSound.Play();
     }
     public void StopNbaSound()
     {
-        if(NbaSound.isPlaying)
+        if(m_NbaSound.isPlaying)
         {
-            NbaSound.Stop();
+            m_NbaSound.Stop();
         }
-        
     }
-    
-
 }
