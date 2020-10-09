@@ -13,7 +13,6 @@ TagManager:
   - EndGameImage
   - ButtonRestart
   - ButtonQuit
-  - HighScoreText
   - ScoreText
   layers:
   - Default

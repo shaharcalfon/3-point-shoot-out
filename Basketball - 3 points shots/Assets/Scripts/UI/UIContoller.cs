@@ -86,7 +86,7 @@ public class UIContoller : MonoBehaviour
         int lastHighScore = PlayerPrefs.GetInt("1", 0);                                                  //Get the highscore.
         if (m_GameController.m_pointsScored > lastHighScore)                                             //Check if the player achieve new highscore.
         {
-            GameObject.FindWithTag("HighScoreText").SetActive(true);                                     //Display the new highscore text.                          
+            m_EndGameCanvasClone.transform.Find("EndGameImage").Find("NewHighScore").gameObject.SetActive(true);  //Display the new highscore text.                                                  
         }
         string currentGameScoreText = string.Format("Your Score: {0}", m_GameController.m_pointsScored);
         GameObject.FindWithTag("ScoreText").GetComponent<Text>().text = currentGameScoreText;            //Update the current score.
