@@ -18,7 +18,7 @@ public class MainMenuManager : MonoBehaviour
 
     void Start() //initialization the highscores.
     {
-        //Application.targetFrameRate = 40;
+        Application.targetFrameRate = 40;
         InitializeHighScoresTabel();
     }
     public void DisplayHowToPlay(bool i_Active)
