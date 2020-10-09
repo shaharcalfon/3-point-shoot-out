@@ -89,7 +89,7 @@ public class UIContoller : MonoBehaviour
             m_EndGameCanvasClone.transform.Find("EndGameImage").Find("NewHighScore").gameObject.SetActive(true);  //Display the new highscore text.                                                  
         }
         string currentGameScoreText = string.Format("Your Score: {0}", m_GameController.m_pointsScored);
-        GameObject.FindWithTag("ScoreText").GetComponent<Text>().text = currentGameScoreText;            //Update the current score.
+        m_EndGameCanvasClone.transform.Find("EndGameImage").Find("YourScore").GetComponent<Text>().text = currentGameScoreText;  //Update the current score.
     }
     public void updateHighScores()
     {
