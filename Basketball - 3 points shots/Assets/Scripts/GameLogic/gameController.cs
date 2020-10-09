@@ -13,7 +13,7 @@ public class gameController : MonoBehaviour
 
     private void Start()
     {
-        //Application.targetFrameRate = 40;
+        Application.targetFrameRate = 40;
         NumberOfShootsThrown = 0;
         isGameOn = true;
     }
