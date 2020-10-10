@@ -19,7 +19,6 @@ public class playerController : MonoBehaviour
     [SerializeField] private Animator m_RightHandAnimator;
     [SerializeField] private Animator m_LeftHandAnimator;
 
-    
     public Transform m_CurrentBall;
     public bool holdingBall = false;
     private Vector3[] throwPositions = new Vector3[5];
