@@ -71,6 +71,7 @@ public class playerController : MonoBehaviour
                 {
                     if (hit.collider.tag == "Ball" && hit.collider.transform.parent !=null && CheckCorrectBallsRack(hit.collider.transform.parent.name))
                     {
+                        holdingBall = true;
                         m_CurrentBall = hit.transform;                                         //Update the ball reference to the current ball we hit.
                         catchBall();
                     }
@@ -84,7 +85,6 @@ public class playerController : MonoBehaviour
         m_CurrentBall.gameObject.AddComponent<Rigidbody>();          //Add rigidbody componnet to make it physical object.
         m_Hands.GetComponent<Animator>().SetTrigger("Catch");                         //Trigger to play the catch animation.     
         m_CurrentBall.GetComponent<Rigidbody>().useGravity = false;
-        holdingBall = true;
         m_UIController.DisplayPowerBar();
     }
 
