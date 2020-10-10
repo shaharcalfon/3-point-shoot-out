@@ -3,9 +3,6 @@ using UnityEngine.UI;
 
 public class PlayerMainMenu : MonoBehaviour
 {
-    private const float XScreenOffset = 0.275f;
-    private const float YSceenOffset = 0.525f;
-
     [SerializeField] private Camera m_MainCamera;
     [SerializeField] private GameObject m_HowToPlayPopUp;
     [SerializeField] private GameObject m_HighScoresPopUp;
@@ -20,7 +17,7 @@ public class PlayerMainMenu : MonoBehaviour
         if(Input.anyKeyDown)
         {
             RaycastHit hit;
-            Ray myRay = m_MainCamera.ScreenPointToRay(new Vector3(XScreenOffset * Screen.width, YSceenOffset * Screen.height, 0f));
+            Ray myRay = new Ray(m_MainCamera.transform.position, m_MainCamera.transform.forward);
             if(Physics.Raycast(myRay, out hit))
             {         
                 if(hit.collider != null && isValidClicked(hit.transform.gameObject.name))       
