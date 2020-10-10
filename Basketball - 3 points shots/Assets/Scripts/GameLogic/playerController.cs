@@ -10,6 +10,7 @@ public class playerController : MonoBehaviour
     private const float BallPositionOffset = 0.8f;
 
     [SerializeField] private GameObject m_Player;
+    [SerializeField] private GameObject m_ScoreArea;
     [SerializeField] private Camera m_MainCamera;
     [SerializeField] private SoundController m_SoundController;
     [SerializeField] private gameController m_GameController;
@@ -58,6 +59,10 @@ public class playerController : MonoBehaviour
         }
         if (Input.anyKeyDown && holdingBall && m_GameController.isGameOn)               //The player throw the ball.
         {
+            if(m_ScoreArea.activeSelf)
+            {
+                m_ScoreArea.SetActive(false);                                           //Disable the scoreArea to prevent the player from making illegal score.
+            }                                          
             throwingBall();
         }
         else if (Input.anyKeyDown && !holdingBall && m_GameController.isGameOn)   //The player try to catch ball

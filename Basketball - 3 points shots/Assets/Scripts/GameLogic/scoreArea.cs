@@ -13,7 +13,7 @@ public class scoreArea : MonoBehaviour
         {
             m_gameController.AddThreePoints();
             m_UIController.UpdateScoreText();
-            m_SoundController.ScoreThreePointsAudio();
+            m_SoundController.ScoreThreePointsAudio();        
         }
     }
 }

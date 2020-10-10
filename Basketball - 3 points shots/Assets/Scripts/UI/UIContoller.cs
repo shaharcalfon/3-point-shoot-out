@@ -18,7 +18,7 @@ public class UIContoller : MonoBehaviour
     public float TimeRemaining { get; private set; }
     public bool timerIsRunning = false;
     private Vector3 m_EndGameUIposition = new Vector3(0f, 0f, -15.75f);
-    private float[] m_EndGameUIRotationsOffsets = new float[5];
+    private float[] m_EndGameUIRotationsOffsets = new float[5] { 0f, 45f, 90f, 135f, 180f };
     private Canvas m_EndGameCanvasClone;
     private float m_SecondCounter = 0;
     
@@ -26,7 +26,6 @@ public class UIContoller : MonoBehaviour
     {
         timerIsRunning = true;
         TimeRemaining = 180f;                    //The player has 3 minutes.
-        initializeEndGameUIRotationsOffsets();
     }
 
     void Update()
@@ -142,16 +141,6 @@ public class UIContoller : MonoBehaviour
         {
             Place = string.Format("{0}", i + 1);
             PlayerPrefs.SetInt(Place, i_HighScores[i]);
-        }
-    }
-    
-    private void initializeEndGameUIRotationsOffsets()
-    { 
-        float angle = 0f;
-        for (int i = 0; i < NumberOfPostions; i++)                                   
-        {
-            m_EndGameUIRotationsOffsets[i] = angle; 
-            angle += 45f;
         }
     }
     public void HidePowerbar()
