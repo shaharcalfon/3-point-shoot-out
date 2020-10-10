@@ -21,11 +21,16 @@ public class SoundController : MonoBehaviour
     {
         m_NbaSound.Play();
     }
-    public void StopNbaSound()
+    public void StopSound()
     {
         if(m_NbaSound.isPlaying)
         {
             m_NbaSound.Stop();
+        }
+        if (m_TenSecondsAudio.isPlaying)
+        {
+            m_TenSecondsAudio.Stop();
+            m_BuzzerAudio.Stop();
         }
     }
 }

@@ -20,7 +20,7 @@ public class gameController : MonoBehaviour
 
     public void EndGame()
     {
-        m_SoundController.StopNbaSound();                             //Stop Nba Sound when the game is finish.
+        m_SoundController.StopSound();                             //Stop Nba Sound when the game is finish.
         isGameOn = false;
         m_UIController.timerIsRunning = false;                        //Stop the timer.
         if (m_PlayerController.holdingBall && m_UIController.TimeRemaining <= 0f)      //If the player hold a ball and the time is up, we need to destroy the ball.
