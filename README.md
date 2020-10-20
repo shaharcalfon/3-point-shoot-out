@@ -1,4 +1,4 @@
-# Basketball---3-point-shots
-A basketball game made with unity
+# 3-point shoot out
+A basketball VR game made with unity.
 
-made by Shahar chalfon and Gal Hay
+made by Shahar chalfon and Gal Hay.
